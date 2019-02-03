@@ -1,0 +1,12 @@
+{
+  "name": "@appliedblockchain/helpers",
+  "version": "0.0.1",
+  "description": "No dependency, single file helpers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Mirek Rusin",
+  "license": "MIT"
+}
