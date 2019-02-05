@@ -36,9 +36,10 @@ function postJson(url /*: string */, json /*: any */) /*: Promise<{| code: numbe
       res.on('data', chunk => chunks.push(chunk))
       res.on('end', () => {
         const code = res.statusCode
+        const headers = res.headers
         const buffer = Buffer.concat(chunks)
         const json = parseJson(buffer.toString('utf8'))
-        resolve({ code, json, buffer })
+        resolve({ code, headers, json, buffer })
       })
       res.on('error', reject)
     })
