@@ -1,8 +1,9 @@
 // @flow
 
+const { inspect } = require('util')
 const { min } = Math
 
-function defaultCmp/*:: <T> */(x /*: T */, y /*: T */) /*: -1 | 0 | 1 */ {
+function defaultCmp(x /*: any */, y /*: any */) /*: -1 | 0 | 1 */ {
   return x == y ?
     0 :
     x < y ? 1 : -1
@@ -13,7 +14,7 @@ function defaultCmp/*:: <T> */(x /*: T */, y /*: T */) /*: -1 | 0 | 1 */ {
  * Comparision function can be flipped for descending arrays.
  * Leaks values of arrays in thrown error.
  */
-function fastIntersection/*: <T> */(
+function fastIntersection/*:: <T> */(
   xs /*: T[] */,
   ys /*: T[] */,
   cmp /*:: ?: (T, T) => -1 | 0 | 1 */ = defaultCmp

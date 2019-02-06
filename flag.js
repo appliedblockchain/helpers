@@ -4,7 +4,7 @@ const { inspect } = require('util')
 
 const args = process.argv
 
-function boolFlag(name) {
+function boolFlag(name /*: string */) {
   for (let i = 0; i < args.length; i++) {
     if (args[i] === name) {
       return true
@@ -13,17 +13,17 @@ function boolFlag(name) {
   return false
 }
 
-function arrayFlag(name, value) {
+function arrayFlag(name /*: string */, value /*: string[] */) /*: string[] */ {
   const result = []
   for (let i = 0; i < args.length; i++) {
     if (args[i] === name) {
-      result.push(args[i + 1])
+      result.push(String(args[i + 1]))
     }
   }
   return result.length ? result : value
 }
 
-function stringFlag(name) {
+function stringFlag(name /*: string */, value /*: string */) {
   for (let i = 0; i < args.length; i++) {
     if (args[i] === name) {
       return args[i + 1]
@@ -32,7 +32,7 @@ function stringFlag(name) {
   return value
 }
 
-function flag(name, value) {
+function flag(name /*: string */, value /*: string | false | string[] */) {
   if (value === false) {
     return boolFlag(name)
   }
@@ -40,7 +40,7 @@ function flag(name, value) {
     return stringFlag(name, value)
   }
   if (Array.isArray(value)) {
-    return arrayFlag(value)
+    return arrayFlag(name, value)
   }
   throw new TypeError(`Invalid flag with ${inspect(name)} name and ${inspect(value)} default value.`)
 }

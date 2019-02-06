@@ -16,7 +16,7 @@ function parseJson(value /*: string */) /*: any */ {
   }
 }
 
-function postJson(url /*: string */, json /*: any */) /*: Promise<{| code: number, json: any, buffer: Buffer |}> */ {
+function postJson(url /*: string */, json /*: any */) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
   const content = JSON.stringify(json)
   const { protocol, host, hostname, port } = parse(url)
   const options = {

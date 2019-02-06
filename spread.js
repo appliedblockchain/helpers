@@ -1,5 +1,6 @@
 // @flow
 
+const { inspect } = require('util')
 const isSafeNatural = require('./is-safe-natural')
 const { min } = Math
 

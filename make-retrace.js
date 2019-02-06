@@ -4,7 +4,7 @@
 function makeRetrace() {
   const captured = {}
   Error.captureStackTrace(captured, makeRetrace)
-  return err => {
+  return (err /*: Error */) => {
     err.stack = [
       ...err.stack.split('\n'),
       '    ...retrace...',

@@ -4,7 +4,7 @@
   "description": "No dependency, single file helpers.",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx flow check && npx jest"
   },
   "keywords": [],
   "author": "Mirek Rusin",
