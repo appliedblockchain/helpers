@@ -32,7 +32,7 @@ function stringFlag(name /*: string */, value /*: string */) {
   return value
 }
 
-function flag(name /*: string */, value /*: string | false | string[] */) {
+function flag(name /*: string */, value /*:: ?: string | false | string[] */ = false) {
   if (value === false) {
     return boolFlag(name)
   }
