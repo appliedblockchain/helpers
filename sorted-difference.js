@@ -9,7 +9,7 @@ const { min } = Math
  * Comparision function can be flipped for descending arrays.
  * Leaks values of arrays in thrown error.
  */
-function fastDifference/*:: <T> */(
+function sortedDifference/*:: <T> */(
   xs /*: T[] */,
   ys /*: T[] */,
   cmp /*:: ?: (T, T) => -1 | 0 | 1 */ = defaultCmp
@@ -52,4 +52,4 @@ function fastDifference/*:: <T> */(
   return rs
 }
 
-module.exports = fastDifference
+module.exports = sortedDifference

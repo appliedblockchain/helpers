@@ -1,6 +1,6 @@
 // @flow
 
-const fastIntersection = require('./fast-intersection')
+const sortedIntersection = require('./sorted-intersection')
 const flag = require('./flag')
 const hasFunction = require('./has-function')
 const isSafeNatural = require('./is-safe-natural')
@@ -12,7 +12,7 @@ const sleep = require('./sleep')
 const spread = require('./spread')
 
 module.exports = {
-  fastIntersection,
+  sortedIntersection,
   flag,
   hasFunction,
   isSafeNatural,

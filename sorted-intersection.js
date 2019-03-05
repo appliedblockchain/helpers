@@ -9,7 +9,7 @@ const { min } = Math
  * Comparision function can be flipped for descending arrays.
  * Leaks values of arrays in thrown error.
  */
-function fastIntersection/*:: <T> */(
+function sortedIntersection/*:: <T> */(
   xs /*: T[] */,
   ys /*: T[] */,
   cmp /*:: ?: (T, T) => -1 | 0 | 1 */ = defaultCmp
@@ -51,4 +51,4 @@ function fastIntersection/*:: <T> */(
   return rs
 }
 
-module.exports = fastIntersection
+module.exports = sortedIntersection
