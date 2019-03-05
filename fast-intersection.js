@@ -1,13 +1,8 @@
 // @flow
 
 const { inspect } = require('util')
+const defaultCmp = require('./default-cmp')
 const { min } = Math
-
-function defaultCmp(x /*: any */, y /*: any */) /*: -1 | 0 | 1 */ {
-  return x == y ?
-    0 :
-    x < y ? 1 : -1
-}
 
 /**
  * Computes intersection in linear time between two, unique, ascending arrays of values.
@@ -38,11 +33,11 @@ function fastIntersection/*:: <T> */(
         yi++
         break
 
-      case 1:
+      case -1:
         xi++
         break
 
-      case -1:
+      case 1:
         yi++
         break
 

@@ -1,14 +1,8 @@
 // @flow
 
 const { inspect } = require('util')
-
+const defaultCmp = require('./default-cmp')
 const { isArray } = Array
-
-function defaultCmp(x /*: any */, y /*: any */) /*: -1 | 0 | 1 */ {
-  return x == y ?
-    0 :
-    x < y ? 1 : -1
-}
 
 function isSorted/*:: <T> */(xs /*: T[] */, cmp /*:: ?: (T, T) => -1 | 0 | 1 */ = defaultCmp) /*: boolean */ {
   if (!isArray(xs)) {
@@ -20,7 +14,7 @@ function isSorted/*:: <T> */(xs /*: T[] */, cmp /*:: ?: (T, T) => -1 | 0 | 1 */ 
   }
   let p = xs[0]
   for (let i = 1; i < n; i++) {
-    if (cmp(p, xs[i]) === -1) {
+    if (cmp(p, xs[i]) === 1) {
       return false
     }
     p = xs[i]
