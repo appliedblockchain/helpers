@@ -25,7 +25,7 @@ async function keythereumOf(
 
   const publicKey = publicKeyOfPrivateKey(privateKey)
   const address = addressOfPublicKey(publicKey)
-  const { derivedKey, memory, dklen, n, r, p } = await scryptOf(password)
+  const { derivedKey, memory, dklen, n, r, p, salt } = await scryptOf(password)
 
   const iv = randomBytes(16)
   const cipher_ = createCipheriv(cipher, derivedKey.slice(0, 16), iv)
@@ -56,7 +56,8 @@ async function keythereumOf(
         dklen,
         n,
         r,
-        p
+        p,
+        salt: hexOfBuffer(salt)
       }
     }
   }
