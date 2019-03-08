@@ -18,7 +18,7 @@ function uuidV4() {
     h[x[i++]], h[x[i++]], '-',
     h[x[i++]], h[x[i++]], '-',
     h[x[i++]], h[x[i++]], '-',
-    h[x[i++]], h[x[i++]], h[x[i++]], h[x[i++]]
+    h[x[i++]], h[x[i++]], h[x[i++]], h[x[i++]], h[x[i++]], h[x[i++]]
   ].join('')
 }
 
