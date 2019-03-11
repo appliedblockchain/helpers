@@ -1,7 +1,8 @@
 // @flow
 
 const { inspect } = require('util')
-const { randomBytes, scrypt } = require('crypto')
+const { randomBytes } = require('crypto')
+const scrypt = require('./crypto-scrypt')
 const { isBuffer } = Buffer
 
 const defaultN = process.env.NODE_ENV === 'test' ? 2 : 16384
@@ -21,10 +22,11 @@ function scryptOf(
     dklen?: number,
     r?: number,
     p?: number,
-    maxmem?: number,
+    memory?: number,
     salt?: Buffer
   |} */ = {}
 ) /*: Promise<{|
+  memory: number,
   n: number,
   dklen: number,
   r: number,
@@ -44,6 +46,10 @@ function scryptOf(
       if (err) {
         reject(err)
       } else {
+        if (!derivedKey) {
+          reject(new TypeError('Unexpected result, err and derived key are both null.'))
+          return
+        }
         resolve({ n, memory, dklen, r, p, salt: effectiveSalt, derivedKey })
       }
     })
