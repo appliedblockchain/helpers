@@ -1,6 +1,6 @@
 {
   "name": "@appliedblockchain/helpers",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "No dependency, single file helpers.",
   "main": "index.js",
   "scripts": {
