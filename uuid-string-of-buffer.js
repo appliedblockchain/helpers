@@ -5,7 +5,7 @@ const { isBuffer } = Buffer
 
 const h = []
 
-for (let i = 0; i < 0xff; ++i) {
+for (let i = 0; i <= 0xff; ++i) {
   h[i] = i.toString(16).padStart(2, '0')
 }
 
