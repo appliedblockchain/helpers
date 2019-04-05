@@ -1,7 +1,9 @@
 // @flow
 
-// Similar to `Promise.all` but yields after each resolved promise.
-// Exceptions are captured. Results are yielded as `[ err, result, i ]` tuple.
+/**
+ * Similar to `Promise.all` but yields after each promise settlement.
+ * Exceptions are captured and results are yielded as `[ err, result, i ]` tuple.
+ */
 async function* eachPromise/*:: <T> */(promises /*: Promise<T>[] */) /*: AsyncGenerator<[ ?Error, ?T, number ], any, any> */ {
 
   const results = []

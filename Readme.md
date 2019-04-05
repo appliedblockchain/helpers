@@ -18,19 +18,26 @@ No dependency, single file helpers. Skewed towards ethereum.
     -   [Parameters](#parameters-1)
 -   [bufferOfHexOrHex0x](#bufferofhexorhex0x)
     -   [Parameters](#parameters-2)
--   [isLikeDateString](#islikedatestring)
+-   [defaultCmp](#defaultcmp)
     -   [Parameters](#parameters-3)
--   [isPending](#ispending)
+-   [eachPromise](#eachpromise)
     -   [Parameters](#parameters-4)
+-   [flagOfBoolean](#flagofboolean)
+    -   [Parameters](#parameters-5)
+    -   [Examples](#examples)
+-   [isLikeDateString](#islikedatestring)
+    -   [Parameters](#parameters-6)
+-   [isPending](#ispending)
+    -   [Parameters](#parameters-7)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
 -   [sortedDifference](#sorteddifference)
-    -   [Parameters](#parameters-5)
+    -   [Parameters](#parameters-8)
 -   [sortedIntersection](#sortedintersection)
-    -   [Parameters](#parameters-6)
+    -   [Parameters](#parameters-9)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-7)
+    -   [Parameters](#parameters-10)
 
 ### addressOfPublicKey
 
@@ -62,6 +69,49 @@ Returns `Buffer` representation of provided hex (ie. `"ff"`) or hex0x (ie. `"0xf
 
 
 -   Throws **any** TypeError On invalid input.
+
+### defaultCmp
+
+-   **See: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description>**
+
+Default comparision function.
+
+#### Parameters
+
+-   `x` **any** 
+-   `y` **any** 
+
+Returns **(`-1` \| `0` \| `1`)** 
+
+### eachPromise
+
+Similar to `Promise.all` but yields after each promise settlement.
+Exceptions are captured and results are yielded as `[ err, result, i ]` tuple.
+
+#### Parameters
+
+-   `promises` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;T>>** 
+
+Returns **AsyncGenerator&lt;\[[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)?, T?, [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)], any, any>** 
+
+### flagOfBoolean
+
+Returns boolean value of command line argument.
+
+#### Parameters
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+#### Examples
+
+```javascript
+const flagOfBoolean = require('@appliedblockchain/helpers/flag-of-boolean')
+console.log(flagOfBoolean('--bar'))
+// node foo.js
+// false
+// node foo.js --bar
+// true
+```
 
 ### isLikeDateString
 
