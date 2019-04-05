@@ -4,6 +4,10 @@ const { inspect } = require('util')
 const isHex = require('./is-hex')
 const isHex0x = require('./is-hex0x')
 
+/**
+ * Returns `Buffer` representation of provided hex (ie. `"ff"`) or hex0x (ie. `"0xff"`) string.
+ * @throws TypeError On invalid input.
+ */
 function bufferOfHexOrHex0x(value /*: string */) {
   if (isHex(value)) {
     return Buffer.from(value, 'hex')

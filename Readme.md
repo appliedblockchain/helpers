@@ -12,19 +12,56 @@ No dependency, single file helpers. Skewed towards ethereum.
 
 #### Table of Contents
 
--   [isLikeDateString](#islikedatestring)
+-   [addressOfPublicKey](#addressofpublickey)
     -   [Parameters](#parameters)
--   [isPending](#ispending)
+-   [booleanOfString](#booleanofstring)
     -   [Parameters](#parameters-1)
+-   [bufferOfHexOrHex0x](#bufferofhexorhex0x)
+    -   [Parameters](#parameters-2)
+-   [isLikeDateString](#islikedatestring)
+    -   [Parameters](#parameters-3)
+-   [isPending](#ispending)
+    -   [Parameters](#parameters-4)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
 -   [sortedDifference](#sorteddifference)
-    -   [Parameters](#parameters-2)
+    -   [Parameters](#parameters-5)
 -   [sortedIntersection](#sortedintersection)
-    -   [Parameters](#parameters-3)
+    -   [Parameters](#parameters-6)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-4)
+    -   [Parameters](#parameters-7)
+
+### addressOfPublicKey
+
+Returns ethereum address of provided public key.
+
+#### Parameters
+
+-   `publicKey` **[Buffer](https://nodejs.org/api/buffer.html)** 
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+
+### booleanOfString
+
+Parses string and returns `true` for `"true"`, `"on"`, `"yes"` and `"1"` strings, `false` otherwise.
+
+#### Parameters
+
+-   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### bufferOfHexOrHex0x
+
+Returns `Buffer` representation of provided hex (ie. `"ff"`) or hex0x (ie. `"0xff"`) string.
+
+#### Parameters
+
+-   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+
+-   Throws **any** TypeError On invalid input.
 
 ### isLikeDateString
 

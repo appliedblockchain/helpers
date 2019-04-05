@@ -4,6 +4,7 @@ const { inspect } = require('util')
 const { isBuffer } = Buffer
 const keccak256OfBuffer = require('./keccak256-of-buffer')
 
+/** Returns ethereum address of provided public key. */
 function addressOfPublicKey(publicKey /*: Buffer */) /*: Buffer */ {
   if (!isBuffer(publicKey)) {
     throw new TypeError(`Expected public key buffer, got ${inspect(publicKey)}.`)
