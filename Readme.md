@@ -29,15 +29,19 @@ No dependency, single file helpers. Skewed towards ethereum.
     -   [Parameters](#parameters-6)
 -   [isPending](#ispending)
     -   [Parameters](#parameters-7)
+-   [isSafeNonNegative](#issafenonnegative)
+    -   [Parameters](#parameters-8)
+-   [isSafePositive](#issafepositive)
+    -   [Parameters](#parameters-9)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
 -   [sortedDifference](#sorteddifference)
-    -   [Parameters](#parameters-8)
+    -   [Parameters](#parameters-10)
 -   [sortedIntersection](#sortedintersection)
-    -   [Parameters](#parameters-9)
+    -   [Parameters](#parameters-11)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-10)
+    -   [Parameters](#parameters-12)
 
 ### addressOfPublicKey
 
@@ -132,6 +136,24 @@ Returns `true` if promise has not settled yet, `false` otherwise.
 -   `value` **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** 
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### isSafeNonNegative
+
+Returns `true` if value is safe integer greater than or equal to zero, `false` otherwise.
+
+#### Parameters
+
+-   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### isSafePositive
+
+#### Parameters
+
+-   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if value is safe integer greater than zero, `false` otherwise.
 
 ### makeRetrace
 
