@@ -4,6 +4,7 @@
   "description": "No dependency, single file helpers.",
   "main": "index.js",
   "scripts": {
+    "doc": "npx documentation readme --section=Api *.js",
     "test": "npx flow check && npx jest"
   },
   "keywords": [],
