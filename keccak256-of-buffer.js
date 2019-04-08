@@ -1,11 +1,11 @@
+// @flow
 
+const { inspect } = require('util')
 const S_f1600_ = require('./keccak256-f1600')
-
-const I = BigInt
+const { isBuffer } = Buffer
 
 const S = new ArrayBuffer(200)
 const s = new Uint32Array(S)
-const L = new BigUint64Array(S)
 const B = new Uint8Array(S)
 
 function S_zero() {
@@ -44,9 +44,7 @@ function keccak256(xs) {
   return B.slice(0, 32)
 }
 
-const { isBuffer } = Buffer
-
-function keccak256OfBuffer(value) {
+function keccak256OfBuffer(value /*: Buffer */) /*: Buffer */ {
   if (!isBuffer(value)) {
     throw new TypeError(`Expected buffer, got ${inspect(value)}.`)
   }
