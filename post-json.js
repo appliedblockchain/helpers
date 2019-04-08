@@ -1,12 +1,9 @@
 // @flow
 
-const { request: httpsRequest } = require('https')
-const { request: httpRequest } = require('http')
 const { parse } = require('url')
-
-function requestOf(url /*: string */) {
-  return url.startsWith('https://') ? httpsRequest : httpRequest
-}
+const { inspect } = require('util')
+const requestOfUrl = require('./request-of-url')
+const defaultAgentOfUrl = require('./default-agent-of-url')
 
 function parseJson(value /*: string */) /*: any */ {
   try {
@@ -16,22 +13,44 @@ function parseJson(value /*: string */) /*: any */ {
   }
 }
 
-function postJson(url /*: string */, json /*: any */) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
+// TODO: Add retry for common errors.
+function postJson(
+  url /*: string */,
+  json /*: any */,
+  { agentOfUrl = defaultAgentOfUrl } /*: {| agentOfUrl?: (url: string) => any |} */ = {}
+) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
+  const request = requestOfUrl(url)
+  if (!request) {
+    throw new TypeError(`Unable to determine request function to use for ${inspect(url)} url (expected http:// or https:// schema).`)
+  }
+  const agent = agentOfUrl(url)
+
+  // Agent is responsible for keep alive connections, if defined, use keep alive, otherwise don't.
+  // TODO: Make timeout and max configurable.
+  const keepAliveHeaders = agent ?
+    {
+      'Connection': 'keep-alive',
+      'Keep-Alive': 'timeout=10, max=1024',
+    } :
+    {}
+
   const content = JSON.stringify(json)
   const { protocol, host, hostname, port } = parse(url)
   const options = {
+    agent,
     protocol,
     host,
     hostname,
     port,
     method: 'POST',
     headers: {
+      ...keepAliveHeaders,
       'Content-Type': 'application/json',
       'Content-Length': Buffer.byteLength(content)
     }
   }
   return new Promise((resolve, reject) => {
-    const req = requestOf(url)(options, res => {
+    const req = request(options, res => {
       const chunks = []
       res.on('data', chunk => chunks.push(chunk))
       res.on('end', () => {
