@@ -22,4 +22,4 @@ function flagOfBoolean(name /*: string */) {
   return false
 }
 
-module.exports = flagOfBoolType
+module.exports = flagOfBoolean
