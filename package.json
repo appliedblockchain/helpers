@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "doc": "npx documentation readme --section=Api *.js",
-    "test": "npx flow check && npx jest"
+    "test": "npx flow check && npx jest",
+    "patch": "npm version patch && git push && git push --tags && npm publish"
   },
   "keywords": [],
   "author": "Mirek Rusin",
