@@ -2,7 +2,9 @@
 
 const majorityOfNumber = require('./majority-of-number')
 
-function majorityOfArray/*:: <T> */(xs /*: T[] */, keyOf /*: T => string */) /*: T | void */ {
+const defaultKeyOf = (value /*: mixed */) => String(value)
+
+function majorityOfArray/*:: <T> */(xs /*: T[] */, keyOf /*:: ?: (value: T) => string */ = defaultKeyOf) /*: T | void */ {
   const counts = {}
   const majority = majorityOfNumber(xs.length)
   const inc = k => (counts[k] = (counts[k] || 0) + 1) >= majority
