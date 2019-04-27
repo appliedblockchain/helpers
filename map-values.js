@@ -3,14 +3,14 @@
 const { isArray } = Array
 const { entries } = Object
 
-function mapValues(value /*: mixed[] | { [string]: mixed } */, f /*: (mixed, string, mixed) => mixed */) {
+function mapValues/*:: <T: mixed[] | { [string]: mixed }> */(value /*: T */, f /*: (mixed, mixed, T) => mixed */) /*: T */ {
   return isArray(value) ?
-    value.map(f) :
-    entries(value)
+    (value /*: any */).map(f) :
+    (entries((value /*: any */))
       .reduce((r, [ k, v ]) => {
         r[k] = f(v, k, value)
         return r
-      }, {})
+      }, {}) /*: any */)
 }
 
 module.exports = mapValues
