@@ -10,5 +10,11 @@
   },
   "keywords": [],
   "author": "Mirek Rusin",
-  "license": "MIT"
+  "license": "MIT",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "wip"
+    ]
+  }
 }
