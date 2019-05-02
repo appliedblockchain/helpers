@@ -4,13 +4,13 @@ class Err extends Error {
 
   /*::
 
-  code: string
-  info: Object
+  code: number | string
+  info: void | Object
 
   */
 
-  constructor(code /*: string */, message /*:: ?: string */, info /*:: ?: Object */) {
-    super(message || code)
+  constructor(code /*: number | string */, message /*:: ?: string */, info /*:: ?: Object */) {
+    super(message || String(code))
     this.code = code
     this.info = info
   }
