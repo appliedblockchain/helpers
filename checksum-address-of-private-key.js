@@ -1,6 +1,6 @@
 // @flow
 
-const addressOfPrivateKey = require('./address-of-public-key')
+const addressOfPrivateKey = require('./address-of-private-key')
 const checksumAddressOfBuffer = require('./checksum-address-of-buffer')
 
 function checksumAddressOfPrivateKey(privateKey /*: Buffer */) /*: string */ {
