@@ -2,7 +2,7 @@
 
 const isString = require('./is-string')
 
-const re = /^[0-9a-fA-F]+$/
+const re = /^[0-9a-fA-F]*$/
 
 function isHex(value /*: mixed */) /*: boolean %checks */ {
   return (
