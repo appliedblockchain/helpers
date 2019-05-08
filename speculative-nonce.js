@@ -90,6 +90,9 @@ class SpeculativeNonce {
       this.nonces.delete(address)
     }, defaultTimeout)
 
+    // TODO: Get rid of this, there's performance penalty for abusing unrefs.
+    timeoutId.unref()
+
     this.timeoutIds.add(timeoutId)
   }
 
