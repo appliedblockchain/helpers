@@ -41,6 +41,7 @@ class SpeculativeNonce {
 
     this.nonces = new Map
     this.executors = new Map
+    this.timeoutIds = new Set
   }
 
   next(address /*: string */) /*: Promise<number> */ {
