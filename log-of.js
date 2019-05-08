@@ -2,6 +2,7 @@
 
 const os = require('os')
 const { keys } = Object
+const isString = require('./is-string')
 
 /*::
 
@@ -85,7 +86,7 @@ function jsonOf(time, level, name, ...args) {
 }
 
 const targets = {
-  console: targetMethods.reduce((r, k) => ({ ...r, [k]: (time, level, mod, ...rest) => console[k](`[${time}]`, `${labelOfLevel[level].padStart(5, ' ')}:`, `${mod}/${pid}`, `on ${hostname}:`, ...rest) }), {}),
+  console: targetMethods.reduce((r, k) => ({ ...r, [k]: (time, level, mod, ...rest) => console[k](`[${time}]`, `${labelOfLevel[level].padStart(5, ' ')}:`, `${mod}/${pid}`, `on ${hostname}:`, ...rest.map(_ => isString(_) ? _ : JSON.stringify(_))) }), {}),
   bunyan: targetMethods.reduce((r, k) => ({ ...r, [k]: (...args) => console[k](jsonOf(...args)) }), {})
 }
 
