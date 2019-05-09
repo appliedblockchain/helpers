@@ -1,21 +1,36 @@
 // @flow
 
-const weakMap = new WeakMap
+const weakMap /*: WeakMap<Object, { [string | Symbol]: mixed }> */ = new WeakMap
 
-function get(object /*: mixed */, key /*: string */) {
-  return weakMap.has(object) ?
-    weakMap.get(object)[key] :
-    void 0
+function has(target /*: Object */, key /*: string | Symbol */) {
+  const meta = weakMap.get(target)
+  if (!meta) {
+    return false
+  }
+  return typeof meta[key] !== 'undefined'
 }
 
-function set(object /*: mixed */, key /*: string */, value /*: mixed */) {
-  if (!weakMap.has(object)) {
-    weakMap.set(object, {})
+function get(target /*: Object */, key /*: string | Symbol */) {
+  const meta = weakMap.get(target)
+  if (!meta) {
+    return void 0
   }
-  weakMap.get(object)[key] = value
+  return meta[key]
+}
+
+function set(target /*: Object */, key /*: string | Symbol */, value /*: mixed */) {
+  if (!weakMap.has(target)) {
+    weakMap.set(target, {})
+  }
+  const meta = weakMap.get(target)
+  if (!meta) {
+    throw new TypeError(`Expected meta.`)
+  }
+  meta[key] = value
 }
 
 module.exports = {
+  has,
   get,
   set
 }
