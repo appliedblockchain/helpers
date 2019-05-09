@@ -5,8 +5,8 @@ const booleanOfString = require('./boolean-of-string')
 const integerOfString = require('./integer-of-string')
 
 const defaultKeepAlive = 'true'
-const defaultKeepAliveMsecs = '1000'
-const defaultMaxSockets = '64'
+const defaultKeepAliveMsecs = '12000'
+const defaultMaxSockets = '256'
 const defaultMaxFreeSockets = '32'
 const defaultTimeout = '10000'
 

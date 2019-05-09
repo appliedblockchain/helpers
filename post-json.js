@@ -68,4 +68,28 @@ function postJson(
   })
 }
 
-module.exports = postJson
+async function postJsonRetry(
+  url /*: string */,
+  json /*: any */,
+  { agentOfUrl = defaultAgentOfUrl } /*: {| agentOfUrl?: (url: string) => any |} */ = {}
+) {
+  let ok
+  let result
+  for (let retry = 0; retry < 12; retry++) {
+    [ ok, result ] = await postJson(url, json, { agentOfUrl })
+      .then(_ => [ true, _ ])
+      .catch(_ => [ false, _ ])
+    if (ok) {
+      break
+    }
+    if (!result || result.code !== 'ECONNRESET') {
+      break
+    }
+  }
+  if (ok) {
+    return result
+  }
+  throw result
+}
+
+module.exports = postJsonRetry

@@ -4,6 +4,7 @@ const assert = require('assert')
 const { inspect } = require('util')
 const rejectTimeout = require('./reject-timeout')
 const Err = require('./err')
+const logOf = require('./log-of')
 
 /*::
 
@@ -13,6 +14,8 @@ type Executor = {|
 |}
 
 */
+
+const log = logOf('helpers:speculative-nonce')
 
 /** Expire cached nonces after 1 minute. */
 const defaultTimeout = 60 * 1000
@@ -84,14 +87,18 @@ class SpeculativeNonce {
 
     // Expire this nonce.
     const timeoutId = setTimeout(() => {
-      assert(this.timeoutIds.has(timeoutId), `Expected ${inspect(timeoutId)} timeout id to be in set.`)
+      if (!this.timeoutIds.has(timeoutId)) {
+        log.error('Expected timeout id to be in set.', { timeoutId, timeoutIds: this.timeoutIds })
+      }
+      if (this.executors.has(address)) {
+        log.error('Expected no in-flight executors on timeout.', { address })
+      }
       this.timeoutIds.delete(timeoutId)
-      assert(!this.executors.has(address), `Expected no executors for ${inspect(address)} on timeout.`)
       this.nonces.delete(address)
     }, defaultTimeout)
 
     // TODO: Get rid of this, there's performance penalty for abusing unrefs.
-    timeoutId.unref()
+    // timeoutId.unref()
 
     this.timeoutIds.add(timeoutId)
   }
