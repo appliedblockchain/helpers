@@ -4,6 +4,18 @@ const { parse } = require('url')
 const { inspect } = require('util')
 const requestOfUrl = require('./request-of-url')
 const defaultAgentOfUrl = require('./default-agent-of-url')
+const errOf = require('./err-of')
+
+/*::
+
+type ErrorWithCode = Error & { code?: string | number }
+
+*/
+
+// TODO: Maybe read from env.
+const defaultTimeout = 12 * 1000
+
+const defaultRetry = 0
 
 function parseJson(value /*: string */) /*: any */ {
   try {
@@ -13,11 +25,24 @@ function parseJson(value /*: string */) /*: any */ {
   }
 }
 
+function defaultRetryOfErr(err /*: ErrorWithCode */) /*: boolean */ {
+  return err && (
+    err.code === 'ECONNRESET' ||
+    err.code === 'ETIMEOUT'
+  )
+}
+
 // TODO: Add retry for common errors.
-function postJson(
+function postJsonNoRetry(
   url /*: string */,
   json /*: any */,
-  { agentOfUrl = defaultAgentOfUrl } /*: {| agentOfUrl?: (url: string) => any |} */ = {}
+  {
+    agentOfUrl = defaultAgentOfUrl,
+    timeout = defaultTimeout
+  } /*: {
+    agentOfUrl?: (url: string) => any,
+    timeout?: number
+  } */ = {}
 ) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
   const request = requestOfUrl(url)
   if (!request) {
@@ -62,34 +87,42 @@ function postJson(
       })
       res.on('error', reject)
     })
+    if (timeout) {
+      req.setTimeout(timeout, () => {
+        if (req.socket) {
+          req.socket.destroy(errOf('ETIMEOUT', `Timeout of ${inspect(timeout)} exceeded.`))
+        }
+      })
+    }
     req.on('error', reject)
     req.write(content)
     req.end()
   })
 }
 
-async function postJsonRetry(
+function postJsonRetry(
   url /*: string */,
   json /*: any */,
-  { agentOfUrl = defaultAgentOfUrl } /*: {| agentOfUrl?: (url: string) => any |} */ = {}
-) {
-  let ok
-  let result
-  for (let retry = 0; retry < 12; retry++) {
-    [ ok, result ] = await postJson(url, json, { agentOfUrl })
-      .then(_ => [ true, _ ])
-      .catch(_ => [ false, _ ])
-    if (ok) {
-      break
-    }
-    if (!result || result.code !== 'ECONNRESET') {
-      break
-    }
-  }
-  if (ok) {
-    return result
-  }
-  throw result
+  options /*: {
+    agentOfUrl?: (url: string) => any,
+    timeout?: number,
+    retry?: number,
+    retryOfErr?: (err: ErrorWithCode) => boolean
+  } */ = {}
+) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
+  const { retry = 0, retryOfErr = defaultRetryOfErr, ...rest } = options
+  return postJsonNoRetry(url, json, rest)
+    .catch((err /*: ErrorWithCode */) => {
+      if (retry && retryOfErr(err)) {
+        return postJsonRetry(url, json, {
+          ...rest,
+          retry: retry - 1,
+          retryOfErr
+        })
+      } else {
+        throw err
+      }
+    })
 }
 
 module.exports = postJsonRetry

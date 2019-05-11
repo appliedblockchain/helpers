@@ -12,36 +12,55 @@ No dependency, single file helpers. Skewed towards ethereum.
 
 #### Table of Contents
 
--   [addressOfPublicKey](#addressofpublickey)
+-   [addressOfPrivateKey](#addressofprivatekey)
     -   [Parameters](#parameters)
--   [booleanOfString](#booleanofstring)
+-   [addressOfPublicKey](#addressofpublickey)
     -   [Parameters](#parameters-1)
--   [bufferOfHexOrHex0x](#bufferofhexorhex0x)
+-   [blockHashOf](#blockhashof)
     -   [Parameters](#parameters-2)
--   [defaultCmp](#defaultcmp)
+-   [booleanOfString](#booleanofstring)
     -   [Parameters](#parameters-3)
--   [eachPromise](#eachpromise)
+-   [bufferOfHexOrHex0x](#bufferofhexorhex0x)
     -   [Parameters](#parameters-4)
--   [flagOfBoolean](#flagofboolean)
+-   [defaultCmp](#defaultcmp)
     -   [Parameters](#parameters-5)
-    -   [Examples](#examples)
--   [isLikeDateString](#islikedatestring)
+-   [eachPromise](#eachpromise)
     -   [Parameters](#parameters-6)
--   [isPending](#ispending)
+-   [flagOfBoolean](#flagofboolean)
     -   [Parameters](#parameters-7)
--   [isSafeNonNegative](#issafenonnegative)
+    -   [Examples](#examples)
+-   [heightOf](#heightof)
     -   [Parameters](#parameters-8)
--   [isSafePositive](#issafepositive)
+-   [hex0xOfNumber](#hex0xofnumber)
     -   [Parameters](#parameters-9)
+-   [isLikeDateString](#islikedatestring)
+    -   [Parameters](#parameters-10)
+-   [isPending](#ispending)
+    -   [Parameters](#parameters-11)
+-   [isSafeNonNegative](#issafenonnegative)
+    -   [Parameters](#parameters-12)
+-   [isSafePositive](#issafepositive)
+    -   [Parameters](#parameters-13)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
+-   [randomUint32](#randomuint32)
+-   [shSync](#shsync)
+    -   [Parameters](#parameters-14)
 -   [sortedDifference](#sorteddifference)
-    -   [Parameters](#parameters-10)
+    -   [Parameters](#parameters-15)
 -   [sortedIntersection](#sortedintersection)
-    -   [Parameters](#parameters-11)
+    -   [Parameters](#parameters-16)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-12)
+    -   [Parameters](#parameters-17)
+
+### addressOfPrivateKey
+
+#### Parameters
+
+-   `privateKey` **[Buffer](https://nodejs.org/api/buffer.html)** 
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** ethereum address of provided `privateKey`.
 
 ### addressOfPublicKey
 
@@ -52,6 +71,16 @@ Returns ethereum address of provided public key.
 -   `publicKey` **[Buffer](https://nodejs.org/api/buffer.html)** 
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+
+### blockHashOf
+
+#### Parameters
+
+-   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `blockNumberOrTag` **(`"earliest"` \| `"latest"` \| `"pending"` \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))**  (optional, default `'latest'`)
+-   `timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**  (optional, default `defaultTiemout`)
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?>** block hash as hex0x string or null from provided ethereum jsonrpc endpoint `url` in specified `timeout`; `null` if timeout has been reached.
 
 ### booleanOfString
 
@@ -117,6 +146,23 @@ console.log(flagOfBoolean('--bar'))
 // true
 ```
 
+### heightOf
+
+#### Parameters
+
+-   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**  (optional, default `defaultTiemout`)
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** Height of the chain from provided ethereum jsonrpc endpoint `url` or `NaN` if timeout has been reached or any other problem occured.
+
+### hex0xOfNumber
+
+#### Parameters
+
+-   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 0x-prefixed hex string representation of a safe, non-negative integer number.
+
 ### isLikeDateString
 
 Checks if `value` looks like `YYYY-MM-DD` date string.
@@ -143,7 +189,7 @@ Returns `true` if value is safe integer greater than or equal to zero, `false` o
 
 #### Parameters
 
--   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `value` **any** 
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
@@ -162,6 +208,20 @@ Captures extra stack trace, usage `await foo().catch(makeRetrace())`.
 ### noop
 
 Identity function.
+
+### randomUint32
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** random unsigned integer that fits 32 bits.
+
+### shSync
+
+Executes simple shell command.
+
+#### Parameters
+
+-   `cmd` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `$1` **any**  (optional, default `{}`)
+    -   `$1.trim`   (optional, default `true`)
 
 ### sortedDifference
 
