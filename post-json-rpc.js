@@ -13,6 +13,7 @@ type UrlOrOptions = string | {
   url: string,
   timeout?: number,
   retry?: number,
+  retryDelay?: number,
   agentOfUrl?: (url: string) => any,
   retryOfErr?: (err: ErrorWithCode) => boolean
 }
