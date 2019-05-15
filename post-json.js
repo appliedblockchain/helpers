@@ -1,10 +1,15 @@
 // @flow
 
-const { parse } = require('url')
 const { inspect } = require('util')
-const requestOfUrl = require('./request-of-url')
+const { min, max } = Math
+const { now } = Date
+const { parse } = require('url')
 const defaultAgentOfUrl = require('./default-agent-of-url')
 const errOf = require('./err-of')
+const logOf = require('./log-of')
+const meta = require('./meta')
+const requestOfUrl = require('./request-of-url')
+const sleep = require('./sleep')
 
 /*::
 
@@ -12,10 +17,20 @@ type ErrorWithCode = Error & { code?: string | number }
 
 */
 
-// TODO: Maybe read from env.
-const defaultTimeout = 12 * 1000
+const log = logOf('post-json')
 
-const defaultRetry = 0
+// TODO: Maybe read from env.
+const defaultTimeout = 60 * 1000
+
+// Safe retry for flushed requests is 0 (no retry). Retry count should be specified by the caller. Ie we can't determine
+// here what is indepotent/safe to retry.
+const defaultFlushedRetry = 0
+
+// Unflushed requests can be safely retried because they didn't make it to the other end.
+const defaultUnflushedRetry = 8
+
+// As default, we'll wait minimum 1 second before each retry.
+const defaultRetryDelay = 1 * 1000
 
 function parseJson(value /*: string */) /*: any */ {
   try {
@@ -75,6 +90,11 @@ function postJsonNoRetry(
     }
   }
   return new Promise((resolve, reject) => {
+
+    // Keep track of request buffer flush. If buffer has not been fully flushed, we consider it safe to retry the
+    // request.
+    let flushed = false
+
     const req = request(options, res => {
       const chunks = []
       res.on('data', chunk => chunks.push(chunk))
@@ -83,20 +103,40 @@ function postJsonNoRetry(
         const headers = res.headers
         const buffer = Buffer.concat(chunks)
         const json = parseJson(buffer.toString('utf8'))
-        resolve({ code, headers, json, buffer })
+        req.emit('settle', void 0, { code, headers, json, buffer })
       })
-      res.on('error', reject)
+      res.on('error', err => req.emit('settle', err))
     })
-    if (timeout) {
-      req.setTimeout(timeout, () => {
+
+    req.on('error', err => req.emit('settle', err))
+    req.on('timeout', () => req.emit('settle', errOf('ETIMEOUT', `Timeout of ${inspect(timeout)} exceeded.`)))
+
+    req.on('settle', (err, result) => {
+
+      // TODO: Double check if this is safe.
+      req.removeAllListeners()
+
+      // Reset timeout for other keep alive.
+      req.setTimeout(0)
+
+      if (err) {
+        meta.set(err, 'flushed', flushed)
+        reject(err)
+
+        // When rejecting, kill keep alive connection.
         if (req.socket) {
-          req.socket.destroy(errOf('ETIMEOUT', `Timeout of ${inspect(timeout)} exceeded.`))
+          req.socket.destroy(err)
         }
-      })
-    }
-    req.on('error', reject)
-    req.write(content)
-    req.end()
+      } else {
+        resolve(result)
+      }
+    })
+
+    req.setTimeout(timeout)
+
+    req.end(content, () => {
+      flushed = true
+    })
   })
 }
 
@@ -107,18 +147,30 @@ function postJsonRetry(
     agentOfUrl?: (url: string) => any,
     timeout?: number,
     retry?: number,
+    retryDelay?: number,
     retryOfErr?: (err: ErrorWithCode) => boolean
   } */ = {}
 ) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
-  const { retry = 0, retryOfErr = defaultRetryOfErr, ...rest } = options
+  const { retry, retryDelay = defaultRetryDelay, retryOfErr = defaultRetryOfErr, ...rest } = options
+  const before = now()
   return postJsonNoRetry(url, json, rest)
     .catch((err /*: ErrorWithCode */) => {
-      if (retry && retryOfErr(err)) {
-        return postJsonRetry(url, json, {
+
+      const flushed = meta.get(err, 'flushed')
+      const retry_ = typeof retry === 'undefined' ?
+        flushed ? defaultFlushedRetry : defaultUnflushedRetry :
+        retry
+      const shouldRetry = retryOfErr(err)
+
+      log.warn('Catched error.', { url, json, err, flushed, retry: retry_, shouldRetry })
+
+      if (retry_ && shouldRetry) {
+        return sleep(max(0, retryDelay - (now() - before))).then(() => postJsonRetry(url, json, {
           ...rest,
-          retry: retry - 1,
+          retry: retry_ - 1,
+          retryDelay,
           retryOfErr
-        })
+        }))
       } else {
         throw err
       }
