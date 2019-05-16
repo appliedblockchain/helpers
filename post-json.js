@@ -116,6 +116,9 @@ function postJsonNoRetry(
       // TODO: Double check if this is safe.
       req.removeAllListeners()
 
+      // HACK: Leave error handler so it doesn't blow up main loop.
+      req.on('error', () => void 0)
+
       // Reset timeout for other keep alive.
       req.setTimeout(0)
 
