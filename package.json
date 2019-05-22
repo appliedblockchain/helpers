@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "npx documentation readme --section=Api *.js",
+    "esdoc": "esdoc",
     "test": "npx flow check && npx jest",
     "patch": "npm test && npm version patch && git push && git push --tags && npm publish",
     "minor": "npm test && npm version minor && git push && git push --tags && npm publish"
@@ -17,5 +18,11 @@
       "node_modules",
       "wip"
     ]
+  },
+  "devDependencies": {
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-node": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0"
   }
 }

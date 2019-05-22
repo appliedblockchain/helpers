@@ -1,0 +1,17 @@
+{
+  "source": ".",
+  "excludes": [ "flow-typed", "test", "node_modules" ],
+  "destination": "docs",
+  "plugins": [
+    { "name": "esdoc-node" },
+    { "name": "esdoc-ecmascript-proposal-plugin", "option": { "all": true } },
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "brand": { "repository": "https://github.com/appliedblockchain/mantle" },
+        "coverage": { "enable": false },
+        "undocumentIdentifier": { "enable": false }
+      }
+    }
+  ]
+}

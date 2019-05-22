@@ -1,0 +1,40 @@
+version: 2.1
+jobs:
+  update_docs:
+    docker:
+    - image: node:11.8
+      auth:
+        username: $DOCKER_USER
+        password: $DOCKER_PASSWORD
+
+    working_directory: ~/helpers
+
+    steps:
+      - checkout
+      - run: |
+          apt-get update && \
+          apt-get install -y \
+          python \
+          python-dev \
+          python-pip \
+          python-setuptools \
+          groff \
+          less \
+          && pip install --upgrade awscli \
+          && apt-get clean
+      - run:
+          name: build docs
+          command: npm i && npm run esdoc
+      - run:
+          name: s3 upload
+          command: aws s3 cp docs s3://helpers-docs.appliedblockchain.com --recursive
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - update_docs:
+          context: org-global
+          filters:
+            branches:
+              only: master
