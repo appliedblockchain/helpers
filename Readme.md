@@ -220,7 +220,7 @@ Executes simple shell command.
 #### Parameters
 
 -   `cmd` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `$1` **any**  (optional, default `{}`)
+-   `$1` **{trim: [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?}**  (optional, default `{}`)
     -   `$1.trim`   (optional, default `true`)
 
 ### sortedDifference
