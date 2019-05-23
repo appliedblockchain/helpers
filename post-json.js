@@ -103,7 +103,8 @@ function postJsonNoRetry(
         const headers = res.headers
         const buffer = Buffer.concat(chunks)
         const json = parseJson(buffer.toString('utf8'))
-        req.emit('settle', void 0, { code, headers, json, buffer })
+        resolve({ code, headers, json, buffer })
+        // req.emit('settle', void 0, { code, headers, json, buffer })
       })
       res.on('error', err => req.emit('settle', err))
     })
