@@ -2,7 +2,6 @@
 
 const postJsonRpc = require('./post-json-rpc')
 const rejectTimeout = require('./reject-timeout')
-const numberOfHex0x = require('./number-of-hex0x')
 const logOf = require('./log-of')
 
 /*::

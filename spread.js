@@ -2,7 +2,6 @@
 
 const { inspect } = require('util')
 const isSafePositive = require('./is-safe-positive')
-const { min } = Math
 
 /** Spread `n` calls to `f` function `ms` milliseconds apart. */
 async function spread(n /*: number */, ms /*: number */, f /*: () => Promise<any> */) /*: Promise<any[]> */ {

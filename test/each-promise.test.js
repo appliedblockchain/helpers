@@ -23,5 +23,4 @@ test('eachPromise', async () => {
   expect(timings[0]).toBeCloseTo(1, 1)
   expect(timings[1]).toBeCloseTo(2, 1)
   expect(timings[2]).toBeCloseTo(3, 1)
-
 })

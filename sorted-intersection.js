@@ -2,7 +2,6 @@
 
 const { inspect } = require('util')
 const defaultCmp = require('./default-cmp')
-const { min } = Math
 
 /**
  * Computes intersection in linear time between two, unique, ascending arrays of values.

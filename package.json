@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "npx documentation readme --section=Api *.js",
-    "test": "npx flow check && npx jest",
+    "test": "flow check && eslint . && jest",
     "patch": "npm test && npm version patch && git push && git push --tags && npm publish",
     "minor": "npm test && npm version minor && git push && git push --tags && npm publish"
   },
@@ -17,5 +17,25 @@
       "node_modules",
       "wip"
     ]
-  }
+  },
+  "devDependencies": {
+    "@appliedblockchain/eslint-config": "2.6.0",
+    "eslint": "5.16.0",
+    "flow-bin": "0.101.0"
+  },
+  "eslintConfig": {
+    "extends": "@appliedblockchain",
+    "rules": {
+      "no-param-reassign": [
+        2,
+        {
+          "props": true
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "flow-typed/*",
+    "wip/*"
+  ]
 }

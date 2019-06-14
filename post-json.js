@@ -1,7 +1,7 @@
 // @flow
 
 const { inspect } = require('util')
-const { min, max } = Math
+const { max } = Math
 const { now } = Date
 const { parse } = require('url')
 const defaultAgentOfUrl = require('./default-agent-of-url')
@@ -70,18 +70,19 @@ function postJsonNoRetry(
   const keepAliveHeaders = agent ?
     {
       'Connection': 'keep-alive',
-      'Keep-Alive': 'timeout=10, max=1024',
+      'Keep-Alive': 'timeout=10, max=1024'
     } :
     {}
 
   const content = JSON.stringify(json)
   const { protocol, host, hostname, port } = parse(url)
+  const protocolPort = protocol === 'https:' ? 443 : 80
   const options = {
     agent,
     protocol,
     host,
     hostname,
-    port,
+    port: port ? parseInt(port, 10) : protocolPort,
     method: 'POST',
     headers: {
       ...keepAliveHeaders,
@@ -102,8 +103,8 @@ function postJsonNoRetry(
         const code = res.statusCode
         const headers = res.headers
         const buffer = Buffer.concat(chunks)
-        const json = parseJson(buffer.toString('utf8'))
-        req.emit('settle', void 0, { code, headers, json, buffer })
+        const json_ = parseJson(buffer.toString('utf8'))
+        req.emit('settle', void 0, { code, headers, json: json_, buffer })
       })
       res.on('error', err => req.emit('settle', err))
     })

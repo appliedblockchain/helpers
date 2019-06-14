@@ -2,8 +2,6 @@
 
 const majorityOfArray = require('../majority-of-array')
 
-
-
 test('majorityOfArray', () => {
   expect(majorityOfArray([ 'a' ], _ => _)).toEqual('a')
   expect(majorityOfArray([ 'a', 'b' ], _ => _)).toEqual(void 0)

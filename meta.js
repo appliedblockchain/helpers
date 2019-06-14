@@ -24,7 +24,7 @@ function set(target /*: Object */, key /*: string | Symbol */, value /*: mixed *
   }
   const meta = weakMap.get(target)
   if (!meta) {
-    throw new TypeError(`Expected meta.`)
+    throw new TypeError('Expected meta.')
   }
   meta[key] = value
 }

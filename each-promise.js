@@ -25,6 +25,8 @@ async function* eachPromise/*:: <T> */(promises /*: Promise<T>[] */) /*: AsyncGe
   )
 
   for (let i = 0; i < promises.length; i++) {
+
+    // eslint-disable-next-line no-loop-func
     yield await new Promise(resolve => {
       if (results.length) {
         resolve(results.shift())

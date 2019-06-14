@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable new-cap */
 
 const { inspect } = require('util')
 const S_f1600_ = require('./keccak256-f1600')

@@ -18,7 +18,9 @@ const variantMicrosoft = Symbol('variantMicrosoft')
 // Reserved for future expansion.
 const variantFuture = Symbol('variantFuture')
 
-function mask(bytes /*: Buffer */, version /*:: ?: number */ = 4, variant /*:: ?: Symbol */ = variantRfc4122) /*: Buffer */ {
+function mask(bytes_ /*: Buffer */, version /*:: ?: number */ = 4, variant /*:: ?: Symbol */ = variantRfc4122) /*: Buffer */ {
+
+  const bytes = Buffer.from(bytes_)
 
   if (!isBuffer(bytes) || bytes.length !== 16) {
     throw new TypeError(`Expected buffer of 16 bytes, got ${inspect(bytes)}.`)
@@ -26,7 +28,7 @@ function mask(bytes /*: Buffer */, version /*:: ?: number */ = 4, variant /*:: ?
 
   switch (variant) {
     case variantUnknown:
-      break;
+      break
     case variantNcs:
       bytes[8] = bytes[8] & 0x7f
       break

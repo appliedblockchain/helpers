@@ -73,7 +73,8 @@ class SpeculativeNonce {
     }
   }
 
-  resolveNonce(address /*: string */, nonce /*: number */) {
+  resolveNonce(address /*: string */, nonce_ /*: number */) {
+    let nonce = nonce_
     assert(!this.nonces.has(address), `Expected nonce for ${inspect(address)} to be undefined.`)
     const executors = this.executors.get(address)
     if (!executors) {

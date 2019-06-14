@@ -1,6 +1,5 @@
 // @flow
 
-const { inspect } = require('util')
 const { randomBytes } = require('crypto')
 const scrypt = require('./crypto-scrypt')
 const { isBuffer } = Buffer
@@ -26,7 +25,7 @@ function scryptOf(
   p: number,
   salt: Buffer,
   derivedKey: Buffer
-|}> */ {
+|}> */ { /* eslint-disable-line brace-style */
   const effectiveSalt = salt || randomBytes(32)
   if (!isBuffer(effectiveSalt)) {
     throw new TypeError(`Expected salt to be a buffer, got ${typeof effectiveSalt}.`)

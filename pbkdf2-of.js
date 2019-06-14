@@ -1,6 +1,5 @@
 // @flow
 
-const { inspect } = require('util')
 const { randomBytes } = require('crypto')
 const { pbkdf2 } = require('crypto')
 const { isBuffer } = Buffer
@@ -23,7 +22,7 @@ async function pbkdf2Of(
   prf: string,
   salt: Buffer,
   derivedKey: Buffer
-|}> */ {
+|}> */ { /* eslint-disable-line brace-style */
   const hash = defaultHash
   const prf = defaultPrf
   const effectiveSalt = salt || randomBytes(32)
