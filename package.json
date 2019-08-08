@@ -7,7 +7,8 @@
     "doc": "npx documentation readme --section=Api *.js",
     "test": "flow check && eslint . && jest",
     "patch": "npm test && npm version patch && git push && git push --tags && npm publish",
-    "minor": "npm test && npm version minor && git push && git push --tags && npm publish"
+    "minor": "npm test && npm version minor && git push && git push --tags && npm publish",
+    "postversion": "changelog > Changelog.md && git add Changelog.md && npm run doc && git add Readme.md && git commit -m \"Updating changelog and readme.\" && git push && git push --tags"
   },
   "keywords": [],
   "author": "Mirek Rusin",
@@ -19,6 +20,7 @@
     ]
   },
   "devDependencies": {
+    "@appliedblockchain/changelog": "1.1.0",
     "@appliedblockchain/eslint-config": "2.6.0",
     "eslint": "5.16.0",
     "flow-bin": "0.101.0"

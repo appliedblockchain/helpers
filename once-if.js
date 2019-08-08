@@ -14,22 +14,30 @@ function onceIf(
     let timeoutId, listener
 
     timeoutId = setTimeout(() => {
-      emitter.off(eventName, listener)
-      listener = null
+      if (listener) {
+        emitter.off(eventName, listener)
+        listener = null
+      }
       reject(errOf(
         'timeout', `Timeout of ${inspect(timeout)} reached while waiting for conditional event ${inspect(eventName)}.`
       ))
     }, timeout)
 
-    listener = emitter.on(eventName, async (...args) => {
+    listener = async (...args) => {
       if (await resultOfPredicate(predicate, ...args)) {
-        emitter.off(eventName, listener)
-        listener = null
-        clearTimeout(timeoutId)
-        timeoutId = null
+        if (listener) {
+          emitter.off(eventName, listener)
+          listener = null
+        }
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+          timeoutId = null
+        }
         resolve(...args)
       }
-    })
+    }
+
+    emitter.on(eventName, listener)
   })
 }
 
