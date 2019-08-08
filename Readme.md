@@ -22,37 +22,43 @@ No dependency, single file helpers. Skewed towards ethereum.
     -   [Parameters](#parameters-3)
 -   [bufferOfHexOrHex0x](#bufferofhexorhex0x)
     -   [Parameters](#parameters-4)
--   [defaultCmp](#defaultcmp)
+-   [catchOf](#catchof)
     -   [Parameters](#parameters-5)
--   [eachPromise](#eachpromise)
+-   [defaultCmp](#defaultcmp)
     -   [Parameters](#parameters-6)
--   [flagOfBoolean](#flagofboolean)
+-   [eachPromise](#eachpromise)
     -   [Parameters](#parameters-7)
+-   [eventuallyTrue](#eventuallytrue)
+    -   [Parameters](#parameters-8)
+-   [flagOfBoolean](#flagofboolean)
+    -   [Parameters](#parameters-9)
     -   [Examples](#examples)
 -   [heightOf](#heightof)
-    -   [Parameters](#parameters-8)
--   [hex0xOfNumber](#hex0xofnumber)
-    -   [Parameters](#parameters-9)
--   [isLikeDateString](#islikedatestring)
     -   [Parameters](#parameters-10)
--   [isPending](#ispending)
+-   [hex0xOfNumber](#hex0xofnumber)
     -   [Parameters](#parameters-11)
--   [isSafeNonNegative](#issafenonnegative)
+-   [isLikeDateString](#islikedatestring)
     -   [Parameters](#parameters-12)
--   [isSafePositive](#issafepositive)
+-   [isPending](#ispending)
     -   [Parameters](#parameters-13)
+-   [isSafeNonNegative](#issafenonnegative)
+    -   [Parameters](#parameters-14)
+-   [isSafePositive](#issafepositive)
+    -   [Parameters](#parameters-15)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
 -   [randomUint32](#randomuint32)
 -   [shSync](#shsync)
-    -   [Parameters](#parameters-14)
--   [sortedDifference](#sorteddifference)
-    -   [Parameters](#parameters-15)
--   [sortedIntersection](#sortedintersection)
     -   [Parameters](#parameters-16)
+-   [sortedDifference](#sorteddifference)
+    -   [Parameters](#parameters-17)
+-   [sortedIntersection](#sortedintersection)
+    -   [Parameters](#parameters-18)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-17)
+    -   [Parameters](#parameters-19)
+-   [stopOfMonitor](#stopofmonitor)
+    -   [Parameters](#parameters-20)
 
 ### addressOfPrivateKey
 
@@ -103,6 +109,15 @@ Returns `Buffer` representation of provided hex (ie. `"ff"`) or hex0x (ie. `"0xf
 
 -   Throws **any** TypeError On invalid input.
 
+### catchOf
+
+#### Parameters
+
+-   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `result` **T** 
+
+Returns **function (error: [Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)): T** 
+
 ### defaultCmp
 
 -   **See: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description>**
@@ -126,6 +141,18 @@ Exceptions are captured and results are yielded as `[ err, result, i ]` tuple.
 -   `promises` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;T>>** 
 
 Returns **AsyncGenerator&lt;\[[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)?, T?, [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)], any, any>** 
+
+### eventuallyTrue
+
+Retries up to `n` times (roughtly seconds) call to `f` waiting for `true` result, which breaks the loop and returns
+`true`. If `f` didn't return `true` throws last result value.
+
+#### Parameters
+
+-   `f` **function (): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;R>** 
+-   `n` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**  (optional, default `30`)
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;(`true` | R)>** 
 
 ### flagOfBoolean
 
@@ -204,6 +231,7 @@ Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 ### makeRetrace
 
 Captures extra stack trace, usage `await foo().catch(makeRetrace())`.
+`err` argument is being modified with new stack value.
 
 ### noop
 
@@ -266,6 +294,18 @@ Spread `n` calls to `f` function `ms` milliseconds apart.
 -   `f` **function (): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** 
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>>** 
+
+### stopOfMonitor
+
+Creates monitor similar to `setInterval` but allows single execution at a time only. Concurrent invocation attempts
+are ignored.
+
+#### Parameters
+
+-   `f` **function (): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** 
+-   `milliseconds` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**  (optional, default `1*1000`)
+
+Returns **any** stop function.
 
 ## License
 
