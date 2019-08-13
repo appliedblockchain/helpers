@@ -1,5 +1,12 @@
 # Changelog
 
+## [v2.9.0](../../compare/v2.8.5...v2.9.0) (2019-08-13)
+
+* Loosening no-param-reassign linter rule.
+* Adding `docs` to gitignore.
+* Adding indexed-by-key helper.
+* Updating changelog and readme.
+
 ## [v2.8.5](../../compare/v2.8.4...v2.8.5) (2019-08-08)
 
 * Fixing once-if helper.

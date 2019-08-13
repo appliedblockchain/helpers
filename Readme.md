@@ -37,28 +37,30 @@ No dependency, single file helpers. Skewed towards ethereum.
     -   [Parameters](#parameters-10)
 -   [hex0xOfNumber](#hex0xofnumber)
     -   [Parameters](#parameters-11)
--   [isLikeDateString](#islikedatestring)
+-   [indexedByKey](#indexedbykey)
     -   [Parameters](#parameters-12)
--   [isPending](#ispending)
+-   [isLikeDateString](#islikedatestring)
     -   [Parameters](#parameters-13)
--   [isSafeNonNegative](#issafenonnegative)
+-   [isPending](#ispending)
     -   [Parameters](#parameters-14)
--   [isSafePositive](#issafepositive)
+-   [isSafeNonNegative](#issafenonnegative)
     -   [Parameters](#parameters-15)
+-   [isSafePositive](#issafepositive)
+    -   [Parameters](#parameters-16)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
 -   [randomUint32](#randomuint32)
 -   [shSync](#shsync)
-    -   [Parameters](#parameters-16)
--   [sortedDifference](#sorteddifference)
     -   [Parameters](#parameters-17)
--   [sortedIntersection](#sortedintersection)
+-   [sortedDifference](#sorteddifference)
     -   [Parameters](#parameters-18)
+-   [sortedIntersection](#sortedintersection)
+    -   [Parameters](#parameters-19)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-19)
--   [stopOfMonitor](#stopofmonitor)
     -   [Parameters](#parameters-20)
+-   [stopOfMonitor](#stopofmonitor)
+    -   [Parameters](#parameters-21)
 
 ### addressOfPrivateKey
 
@@ -189,6 +191,16 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 -   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 0x-prefixed hex string representation of a safe, non-negative integer number.
+
+### indexedByKey
+
+#### Parameters
+
+-   `xs` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;T>** 
+-   `key` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **{}** transposed entries from xs, indexed by `key`. Non-unique keys will overwrite previous values.
+Non-existing keys will be indexed under `undefined` key.
 
 ### isLikeDateString
 
