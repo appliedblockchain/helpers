@@ -49,18 +49,20 @@ No dependency, single file helpers. Skewed towards ethereum.
     -   [Parameters](#parameters-16)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
+-   [objectOfStrings](#objectofstrings)
+    -   [Parameters](#parameters-17)
 -   [randomUint32](#randomuint32)
 -   [shSync](#shsync)
-    -   [Parameters](#parameters-17)
--   [sortedDifference](#sorteddifference)
     -   [Parameters](#parameters-18)
--   [sortedIntersection](#sortedintersection)
+-   [sortedDifference](#sorteddifference)
     -   [Parameters](#parameters-19)
+-   [sortedIntersection](#sortedintersection)
+    -   [Parameters](#parameters-20)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-20)
--   [stopOfMonitor](#stopofmonitor)
     -   [Parameters](#parameters-21)
+-   [stopOfMonitor](#stopofmonitor)
+    -   [Parameters](#parameters-22)
 
 ### addressOfPrivateKey
 
@@ -248,6 +250,14 @@ Captures extra stack trace, usage `await foo().catch(makeRetrace())`.
 ### noop
 
 Identity function.
+
+### objectOfStrings
+
+#### Parameters
+
+-   `strings` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+
+Returns **{}** membership object (set) for provided list of elements (strings).
 
 ### randomUint32
 

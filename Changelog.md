@@ -1,5 +1,10 @@
 # Changelog
 
+## [v2.10.0](../../compare/v2.9.0...v2.10.0) (2019-08-13)
+
+* Adding object-of-strings helper.
+* Updating changelog and readme.
+
 ## [v2.9.0](../../compare/v2.8.5...v2.9.0) (2019-08-13)
 
 * Loosening no-param-reassign linter rule.
