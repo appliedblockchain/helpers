@@ -1,6 +1,6 @@
 {
   "name": "@appliedblockchain/helpers",
-  "version": "2.8.5",
+  "version": "2.9.0",
   "description": "No dependency, single file helpers.",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,12 @@
   "eslintConfig": {
     "extends": "@appliedblockchain",
     "rules": {
-      "no-param-reassign": [ 2, { "props": false } ]
+      "no-param-reassign": [
+        2,
+        {
+          "props": false
+        }
+      ]
     }
   },
   "eslintIgnore": [
