@@ -28,12 +28,7 @@
   "eslintConfig": {
     "extends": "@appliedblockchain",
     "rules": {
-      "no-param-reassign": [
-        2,
-        {
-          "props": true
-        }
-      ]
+      "no-param-reassign": [ 2, { "props": false } ]
     }
   },
   "eslintIgnore": [
