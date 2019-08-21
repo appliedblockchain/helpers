@@ -4,12 +4,12 @@ const errOf = require('./err-of')
 const resultOfPredicate = require('./result-of-predicate')
 const { inspect } = require('util')
 
-function onceIf(
+function onceIf/*:: <T = any> */(
   emitter /*: events$EventEmitter */,
   eventName /*: string */,
-  predicate /*: () => boolean | Promise<boolean> */,
+  predicate /*: (value: T) => boolean | Promise<boolean> */,
   timeout /*: number */
-) /*: Promise<any> */ {
+) /*: Promise<T> */ {
   return new Promise((resolve, reject) => {
     let timeoutId, listener
 
@@ -23,8 +23,8 @@ function onceIf(
       ))
     }, timeout)
 
-    listener = async (...args) => {
-      if (await resultOfPredicate(predicate, ...args)) {
+    listener = async (value /*: T */) => {
+      if (await resultOfPredicate(predicate, value)) {
         if (listener) {
           emitter.off(eventName, listener)
           listener = null
@@ -33,7 +33,7 @@ function onceIf(
           clearTimeout(timeoutId)
           timeoutId = null
         }
-        resolve(...args)
+        resolve(value)
       }
     }
 
