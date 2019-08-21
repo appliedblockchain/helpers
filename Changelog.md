@@ -1,5 +1,20 @@
 # Changelog
 
+## [v3.0.2](../../compare/v3.0.1...v3.0.2) (2019-08-21)
+
+* Dropping auto doc generation, it's broken on some files.
+
+## [v3.0.1](../../compare/v3.0.0...v3.0.1) (2019-08-21)
+
+* No changes.
+
+## [v3.0.0](../../compare/v2.10.0...v3.0.0) (2019-08-21)
+
+* Updating npms. Adding docs/* to eslint ignore.
+* Updating types of indexed-by-key.
+* Changing predicate on once-if/result-of-predicate to single value.
+* Updating changelog and readme.
+
 ## [v2.10.0](../../compare/v2.9.0...v2.10.0) (2019-08-13)
 
 * Adding object-of-strings helper.
