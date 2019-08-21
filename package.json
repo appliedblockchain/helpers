@@ -22,8 +22,8 @@
   "devDependencies": {
     "@appliedblockchain/changelog": "1.1.0",
     "@appliedblockchain/eslint-config": "2.6.0",
-    "eslint": "5.16.0",
-    "flow-bin": "0.101.0"
+    "eslint": "6.2.1",
+    "flow-bin": "0.105.2"
   },
   "eslintConfig": {
     "extends": "@appliedblockchain",
@@ -38,6 +38,7 @@
   },
   "eslintIgnore": [
     "flow-typed/*",
-    "wip/*"
+    "wip/*",
+    "docs/*"
   ]
 }
