@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.1.0](../../compare/v3.0.2...v3.1.0) (2019-09-10)
+
+* Switching from `JSON.stringify` to `inspect` on default logger...
+* Updating changelog.
+
 ## [v3.0.2](../../compare/v3.0.1...v3.0.2) (2019-08-21)
 
 * Dropping auto doc generation, it's broken on some files.
