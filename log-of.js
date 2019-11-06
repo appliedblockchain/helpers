@@ -65,13 +65,13 @@ const targetMethodOfLogMethod = {
 
 const logMethods = keys(targetMethodOfLogMethod)
 
-const modLevels = (process.env.LOG || 'off')
+const modLevels /*: { [string]: number } */ = (process.env.LOG || 'off')
   .split(',')
   .map(entry => entry.includes('=') ?
     entry.split('=') :
     [ 'global', entry ]
   )
-  .reduce((r, [ k, v ]) => ({ ...r, [k]: levels[v] || levels.off }), {})
+  .reduce((r /*: any */, [ k, v ]) => ({ ...r, [k]: levels[v] || levels.off }), {})
 
 function noop() {}
 
@@ -82,13 +82,13 @@ function now() {
 // TODO: Protect against circular references.
 function jsonOf(time, level, name, ...args) {
   return JSON.stringify(
-    args.reduce((r, e) => Object.assign(r, typeof e === 'string' ? { msg: e } : e), { pid, hostname, time, level, name, v: 0 })
+    args.reduce((r /*: any */, e) => Object.assign(r, typeof e === 'string' ? { msg: e } : e), { pid, hostname, time, level, name, v: 0 })
   )
 }
 
 const targets = {
-  console: targetMethods.reduce((r, k) => ({ ...r, [k]: (time, level, mod, ...rest) => console[k](`[${time}]`, `${labelOfLevel[level].padStart(5, ' ')}:`, `${mod}/${pid}`, `on ${hostname}:`, ...rest.map(_ => isString(_) ? _ : inspect(_))) }), {}),
-  bunyan: targetMethods.reduce((r, k) => ({ ...r, [k]: (...args) => console[k](jsonOf(...args)) }), {})
+  console: targetMethods.reduce((r /*: any */, k /*: any */) => ({ ...r, [k]: (time, level, mod, ...rest) => console[k](`[${time}]`, `${labelOfLevel[level].padStart(5, ' ')}:`, `${mod}/${pid}`, `on ${hostname}:`, ...rest.map(_ => isString(_) ? _ : inspect(_))) }), {}),
+  bunyan: targetMethods.reduce((r /*: any */, k /*: any */) => ({ ...r, [k]: (...args) => console[k](jsonOf(...args)) }), {})
 }
 
 function logOf(mod /*: string */, target /*:: ?: Target */ = targets[logTarget]) /*: Log */ {
