@@ -1,5 +1,12 @@
 # Changelog
 
+## [v3.1.1](../../compare/v3.1.0...v3.1.1) (2019-11-06)
+
+* Bumping flow.
+* Adding web-socket-ready-state helper.
+* Updating type for indexed-by-key as flow has problems with nulls.
+* Updating changelog.
+
 ## [v3.1.0](../../compare/v3.0.2...v3.1.0) (2019-09-10)
 
 * Switching from `JSON.stringify` to `inspect` on default logger...
