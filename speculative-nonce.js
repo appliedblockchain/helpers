@@ -17,8 +17,8 @@ type Executor = {|
 
 const log = logOf('helpers:speculative-nonce')
 
-/** Expire cached nonces after 1 minute. */
-const defaultTimeout = 60 * 1000
+/** Expire cached nonces after 12 seconds. */
+const defaultTimeout = 12 * 1000
 
 class SpeculativeNonce {
 
