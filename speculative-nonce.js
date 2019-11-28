@@ -1,10 +1,11 @@
 // @flow
 
-const assert = require('assert')
 const { inspect } = require('util')
-const rejectTimeout = require('./reject-timeout')
+const assert = require('assert')
+const checksumAddressOfAddress_ = require('./checksum-address-of-address')
 const Err = require('./err')
 const logOf = require('./log-of')
+const rejectTimeout = require('./reject-timeout')
 
 /*::
 
@@ -19,6 +20,14 @@ const log = logOf('helpers:speculative-nonce')
 
 /** Expire cached nonces after 12 seconds. */
 const defaultTimeout = 12 * 1000
+
+function checksumAddressOfAddress(address) {
+  const checksumAddress = checksumAddressOfAddress_(address)
+  if (checksumAddress !== address) {
+    log.warn(`Invalid checksum address ${address}.`, (new Error).stack)
+  }
+  return checksumAddress
+}
 
 class SpeculativeNonce {
 
@@ -39,7 +48,7 @@ class SpeculativeNonce {
 
     // Wrap in timeout.
     this.nonceOfAddress = (address /*: string */) => {
-      return rejectTimeout(nonceOfAddress(address), defaultTimeout - 1000)
+      return rejectTimeout(nonceOfAddress(checksumAddressOfAddress(address)), defaultTimeout - 1000)
     }
 
     this.nonces = new Map
@@ -47,7 +56,9 @@ class SpeculativeNonce {
     this.timeoutIds = new Set
   }
 
-  next(address /*: string */) /*: Promise<number> */ {
+  next(address_ /*: string */) /*: Promise<number> */ {
+
+    const address = checksumAddressOfAddress(address_)
 
     // If there's nonce available, use sync code path to retrieve it.
     const nonce = this.nonces.get(address)
@@ -60,7 +71,10 @@ class SpeculativeNonce {
     return new Promise((resolve, reject) => this.addExecutor(address, { resolve, reject }))
   }
 
-  addExecutor(address /*: string */, executor /*: Executor */) {
+  addExecutor(address_ /*: string */, executor /*: Executor */) {
+
+    const address = checksumAddressOfAddress(address_)
+
     const { nonceOfAddress } = this
     const executors = this.executors.get(address)
     if (executors) {
@@ -73,7 +87,8 @@ class SpeculativeNonce {
     }
   }
 
-  resolveNonce(address /*: string */, nonce_ /*: number */) {
+  resolveNonce(address_ /*: string */, nonce_ /*: number */) {
+    const address = checksumAddressOfAddress(address_)
     let nonce = nonce_
     assert(!this.nonces.has(address), `Expected nonce for ${inspect(address)} to be undefined.`)
     const executors = this.executors.get(address)
@@ -104,7 +119,8 @@ class SpeculativeNonce {
     this.timeoutIds.add(timeoutId)
   }
 
-  rejectNonce(address /*: string */, err /*: Error */) {
+  rejectNonce(address_ /*: string */, err /*: Error */) {
+    const address = checksumAddressOfAddress(address_)
     const executors = this.executors.get(address)
     if (!executors) {
       return
