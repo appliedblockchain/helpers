@@ -1,5 +1,14 @@
 # Changelog
 
+## [v3.2.0](../../compare/v3.1.1...v3.2.0) (2019-11-28)
+
+* Updating speculative nonce tests to work on real addresses.
+* Updating speculative nonce to work on checksum addresses.
+* Adding checksum-address-of-address helper.
+* Adding tests around speculative nonce.
+* Lowering speculative nonce timeout from 1m to 12s.
+* Updating changelog.
+
 ## [v3.1.1](../../compare/v3.1.0...v3.1.1) (2019-11-06)
 
 * Bumping flow.
