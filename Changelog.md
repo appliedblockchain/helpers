@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.2.1](../../compare/v3.2.0...v3.2.1) (2019-12-03)
+
+* Bumping npms.
+* Updating changelog.
+
 ## [v3.2.0](../../compare/v3.1.1...v3.2.0) (2019-11-28)
 
 * Updating speculative nonce tests to work on real addresses.
