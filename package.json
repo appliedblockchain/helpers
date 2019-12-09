@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "npx documentation readme --section=Api *.js",
-    "test": "flow check && eslint . && jest",
+    "test": "eslint . && flow check && jest",
     "patch": "npm test && npm version patch && git push && git push --tags && npm publish",
     "minor": "npm test && npm version minor && git push && git push --tags && npm publish",
     "postversion": "changelog > Changelog.md && git add Changelog.md && git commit -m \"Updating changelog.\" && git push && git push --tags"
@@ -34,6 +34,9 @@
           "props": false
         }
       ]
+    },
+    "globals": {
+      "BigInt": true
     }
   },
   "eslintIgnore": [
