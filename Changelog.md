@@ -1,5 +1,12 @@
 # Changelog
 
+## [v4.0.0](../../compare/v3.4.0...v4.0.0) (2019-12-12)
+
+* Fixing reject timeout promise leak.
+* Using new hex0x-of-unsigned name.
+* Renaming hex0x-of-number to hex0x-of-unsigned.
+* Updating changelog.
+
 ## [v3.4.0](../../compare/v3.3.0...v3.4.0) (2019-12-12)
 
 * Adding timeout-of helper.
