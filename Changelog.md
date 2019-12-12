@@ -1,5 +1,21 @@
 # Changelog
 
+## [v3.3.0](../../compare/v3.2.1...v3.3.0) (2019-12-12)
+
+* Adding note on reject-timeout.
+* Adding race-promises helper.
+* Rearranging test to run linter first, adding BigInt as global to eslint.
+* Adding poor-man's big-int hack around flow not supporting bigint yet.
+* Adding buffer-of-unsigned helper.
+* Renaming hex-of-number to hex-of-unsigned.
+* Reusing hex-of-number helper to return correctly odd-padded hex.
+* Using padding helper in hex-of-number.
+* Updating buffer-of-hex/hex0x helpers to work correctly on odd strings.
+* Adding even-zero-padded-of helper.
+* Adding hex-of-number helper.
+* Adding is-safe-unsigned helper.
+* Updating changelog.
+
 ## [v3.2.1](../../compare/v3.2.0...v3.2.1) (2019-12-03)
 
 * Bumping npms.
