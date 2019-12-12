@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.4.0](../../compare/v3.3.0...v3.4.0) (2019-12-12)
+
+* Adding timeout-of helper.
+* Updating changelog.
+
 ## [v3.3.0](../../compare/v3.2.1...v3.3.0) (2019-12-12)
 
 * Adding note on reject-timeout.
