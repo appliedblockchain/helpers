@@ -3,7 +3,7 @@
 const { inspect } = require('util')
 const postJsonRpc = require('./post-json-rpc')
 const rejectTimeout = require('./reject-timeout')
-const hex0xOfNumber = require('./hex0x-of-number')
+const hex0xOfUnsigned = require('./hex0x-of-unsigned')
 const isSafeNonNegative = require('./is-safe-non-negative')
 const isBlockQueryTag = require('./is-block-query-tag')
 
@@ -22,7 +22,7 @@ async function blockHashOf(
     throw new TypeError(`Expected safe non-negative block number or 'earliest', 'latest' or 'pending' tag, got ${inspect(blockNumberOrTag)}.`)
   }
   const blockNumberOrTag_ = isSafeNonNegative(blockNumberOrTag) ?
-    hex0xOfNumber(blockNumberOrTag) :
+    hex0xOfUnsigned(blockNumberOrTag) :
     blockNumberOrTag
   return rejectTimeout(postJsonRpc(url, 'eth_getBlockByNumber', blockNumberOrTag_, false), timeout)
     .then((block /*: ?{ hash: string } */) => block ? block.hash : null)
