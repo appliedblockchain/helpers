@@ -6,6 +6,8 @@ function rejectTimeout/*:: <T> */(promise /*: Promise<T> */, milliseconds /*: nu
   let timeoutId
   return Promise.race([
     promise.finally(() => clearTimeout(timeoutId)),
+
+    // TODO: This leaks promise object.
     new Promise((resolve, reject) => {
       timeoutId = setTimeout(
         () => {
