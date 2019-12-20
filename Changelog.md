@@ -1,5 +1,12 @@
 # Changelog
 
+## [v4.1.0](../../compare/v4.0.0...v4.1.0) (2019-12-20)
+
+* Adding inc helper.
+* Adding is-nil helper.
+* Adding fibonacci-of helper.
+* Updating changelog.
+
 ## [v4.0.0](../../compare/v3.4.0...v4.0.0) (2019-12-12)
 
 * Fixing reject timeout promise leak.
