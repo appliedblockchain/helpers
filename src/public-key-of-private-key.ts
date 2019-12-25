@@ -1,11 +1,14 @@
-// @flow
 
-const { createECDH } = require('crypto')
+import { createECDH } from 'crypto';
 const { isBuffer } = Buffer
 
 const secp256k1 = createECDH('secp256k1')
 
-function publicKeyOfPrivateKey(privateKey /*: Buffer */) /*: Buffer */ {
+/**
+ * TODO: Description of the method
+ * @param privateKey Buffer
+ */
+export function publicKeyOfPrivateKey(privateKey: Buffer ): Buffer {
   if (!isBuffer(privateKey)) {
     throw new TypeError(`Expected buffer, got ${typeof privateKey}.`)
   }
@@ -16,4 +19,4 @@ function publicKeyOfPrivateKey(privateKey /*: Buffer */) /*: Buffer */ {
   return secp256k1.getPublicKey().slice(1)
 }
 
-module.exports = publicKeyOfPrivateKey
+export default publicKeyOfPrivateKey;

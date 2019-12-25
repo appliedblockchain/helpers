@@ -1,16 +1,17 @@
 // @flow
 
+import { inspect } from 'util';
+import evenZeroPaddedOf from './even-zero-padded-of';
+import isHex0x from './is-hex0x';
+
 const { from: bufferOf } = Buffer
-const { inspect } = require('util')
-const evenZeroPaddedOf = require('./even-zero-padded-of')
-const isHex0x = require('./is-hex0x')
 
 /** @returns buffer representation of provided hex0x string. */
-function bufferOfHex0x(value /*: string */) /*: Buffer */ {
+export function bufferOfHex0x(value: string ) : Buffer {
   if (!isHex0x(value)) {
     throw new TypeError(`Expected hex0x string, got ${inspect(value)}.`)
   }
   return bufferOf(evenZeroPaddedOf(value.slice(2)), 'hex')
 }
 
-module.exports = bufferOfHex0x
+export default bufferOfHex0x;

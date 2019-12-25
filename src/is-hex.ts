@@ -1,14 +1,13 @@
-// @flow
 
-const isString = require('./is-string')
+import isString from './is-string';
 
 const re = /^[0-9a-fA-F]*$/
 
-function isHex(value /*: mixed */) /*: boolean %checks */ {
+export function isHex(value: any) : boolean {
   return (
     isString(value) &&
     re.test(value)
   )
 }
 
-module.exports = isHex
+export default isHex;

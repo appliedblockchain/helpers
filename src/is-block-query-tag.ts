@@ -1,6 +1,5 @@
-// @flow
 
-function isBlockQueryTag(value /*: mixed */) /*: boolean %checks */ {
+export function isBlockQueryTag(value : any) : boolean {
   return (
     value === 'earliest' ||
     value === 'latest' ||
@@ -8,4 +7,4 @@ function isBlockQueryTag(value /*: mixed */) /*: boolean %checks */ {
   )
 }
 
-module.exports = isBlockQueryTag
+export default isBlockQueryTag;

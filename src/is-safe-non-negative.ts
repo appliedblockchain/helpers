@@ -1,3 +1,3 @@
-// @flow
 
-module.exports = require('./is-safe-unsigned')
+
+export { isSafeUnsigned as default } from './is-safe-unsigned';

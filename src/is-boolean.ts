@@ -1,7 +1,6 @@
-// @flow
 
-function isBoolean(value /*: mixed */) /*: boolean %checks */ {
+export function isBoolean(value: any) : boolean {
   return typeof value === 'boolean'
 }
 
-module.exports = isBoolean
+export default isBoolean;

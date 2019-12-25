@@ -1,11 +1,9 @@
-// @flow
+import { inspect } from 'util';
+import defaultHttpAgent from './default-http-agent';
+import defaultHttpsAgent from './default-https-agent';
+import isString from './is-string';
 
-const { inspect } = require('util')
-const defaultHttpAgent = require('./default-http-agent')
-const defaultHttpsAgent = require('./default-https-agent')
-const isString = require('./is-string')
-
-function defaultAgentOfUrl(url /*: string */) {
+export function defaultAgentOfUrl(url : string ) {
   if (!isString(url)) {
     throw new TypeError(`Expected string url, got ${inspect(url)}.`)
   }
@@ -18,4 +16,4 @@ function defaultAgentOfUrl(url /*: string */) {
   return null
 }
 
-module.exports = defaultAgentOfUrl
+export default defaultAgentOfUrl;

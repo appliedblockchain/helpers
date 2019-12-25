@@ -1,10 +1,11 @@
-// @flow
+import publicKeyOfPrivateKey from './public-key-of-private-key';
+import addressOfPublicKey from './address-of-public-key';
 
-const publicKeyOfPrivateKey = require('./public-key-of-private-key')
-const addressOfPublicKey = require('./address-of-public-key')
-
-/** @returns ethereum address of provided `privateKey`. */
-function addressOfPrivateKey(privateKey /*: Buffer */) /*: Buffer */ {
+/**
+ * Returns ethereum address of provided `privateKey` 
+ * @param privateKey 
+ */
+function addressOfPrivateKey(privateKey: Buffer): Buffer {
   return addressOfPublicKey(publicKeyOfPrivateKey(privateKey))
 }
 

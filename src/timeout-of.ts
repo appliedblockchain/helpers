@@ -1,16 +1,15 @@
-// @flow
-
-const Err = require('./err')
+import Err from './err';
 
 /** @returns cancellable, rejecting timeout promise. */
-function timeoutOf(
-  milliseconds /*: number */,
-  message /*:: ?: string */ = `Timeout of ${String(milliseconds)}ms exceeded.`,
-  code /*:: ?: number | string */ = '@appliedblockchain/helpers/timeout'
-) /*: Promise<any> & { cancel: Function } */ {
-  let timeoutId
-  let resolve_
-  const promise /*: Promise<any> & { cancel?: Function } */ = new Promise((resolve, reject) => {
+export function timeoutOf(
+  milliseconds: number,
+  message: string = `Timeout of ${String(milliseconds)}ms exceeded.`,
+  code: number | string  = '@appliedblockchain/helpers/timeout'
+) : Promise<any> & { cancel: Function } {
+  let timeoutId: any;
+  let resolve_: Function;
+  // @ts-ignore
+  const promise: Promise<any> & { cancel: Function }  = new Promise((resolve, reject) => {
     resolve_ = resolve
     timeoutId = setTimeout(
       () => {
@@ -18,7 +17,7 @@ function timeoutOf(
       },
       milliseconds
     )
-  })
+  });
   promise.cancel = () => {
     if (timeoutId) {
       clearTimeout(timeoutId)
@@ -29,4 +28,4 @@ function timeoutOf(
   return promise
 }
 
-module.exports = timeoutOf
+export default timeoutOf;

@@ -1,9 +1,9 @@
 // @flow
 
-const isString = require('./is-string')
-const isHex = require('./is-hex')
+import isString from './is-string';
+import isHex from './is-hex';
 
-function isHex0x(value /*: mixed */) /*: boolean %checks */ {
+export function isHex0x(value: any): boolean {
   return (
     isString(value) &&
     value.startsWith('0x') &&
@@ -11,4 +11,4 @@ function isHex0x(value /*: mixed */) /*: boolean %checks */ {
   )
 }
 
-module.exports = isHex0x
+export default isHex0x;

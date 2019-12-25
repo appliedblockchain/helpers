@@ -1,7 +1,10 @@
-// @flow
-
-function arrayOf/*:: <T> */(n /*:: ?: number */ = 0, f /*:: ?: number => T */ = _ => (_ /*: any */)) /*: T[] */ {
-  return Array.from(new Array(n), (_, i) => f(i))
+/**
+ * TODO: return type  
+ * @param n 
+ * @param f 
+ */
+export const arrayOf = <T>(n: number, f: (i: number) => T): T[] => {
+  return Array.from(new Array(n), (_, i) => f(i));
 }
 
-module.exports = arrayOf
+export default arrayOf;

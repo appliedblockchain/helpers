@@ -1,15 +1,11 @@
-// @flow
 
-const { inspect } = require('util')
-const postJson = require('./post-json')
-const JsonRpcError = require('./json-rpc-error')
-const isString = require('./is-string')
+import { inspect } from  'util'
+import postJson from './post-json';
+import JsonRpcError from './json-rpc-error';
 
-/*::
+export type ErrorWithCode = Error & { code?: string | number }
 
-type ErrorWithCode = Error & { code?: string | number }
-
-type UrlOrOptions = string | {
+export type UrlOrOptions = string | {
   url: string,
   timeout?: number,
   retry?: number,
@@ -18,20 +14,19 @@ type UrlOrOptions = string | {
   retryOfErr?: (err: ErrorWithCode) => boolean
 }
 
-*/
 
 let id = 1
 
-async function postJsonRpc(urlOrOptions /*: UrlOrOptions */, method /*: string */, ...params /*: any[] */) /*: Promise<any> */ {
+export async function postJsonRpc(urlOrOptions: UrlOrOptions, method : string , ...params : any[] ) : Promise<any> {
 
   let url
   let options
-  if (isString(urlOrOptions)) {
+  if (typeof urlOrOptions === 'string') {
     url = urlOrOptions
   } else {
-    const { url: url_, ...rest } = urlOrOptions
-    url = url_
-    options = rest
+    const { url: url_, ...otherOptions } = urlOrOptions
+    url = urlOrOptions.url; 
+    options = otherOptions 
   }
 
   const { code, json: { jsonrpc, result, error } } = await postJson(url, { jsonrpc: '2.0', id: id++, method, params }, options)
@@ -47,4 +42,4 @@ async function postJsonRpc(urlOrOptions /*: UrlOrOptions */, method /*: string *
   return result
 }
 
-module.exports = postJsonRpc
+export default postJsonRpc;

@@ -1,9 +1,8 @@
-// @flow
 
-const isHex0x = require('./is-hex0x')
+import isHex0x from './is-hex0x';
 
-function isAddress(value /*: mixed */) /*: boolean %checks */ {
+export function isAddress(value: any): boolean {
   return isHex0x(value) && value.length === 2 + (2 * 20)
 }
 
-module.exports = isAddress
+export default isAddress;

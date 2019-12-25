@@ -1,20 +1,13 @@
-// @flow
+export type Code = number | string; 
+export type Info = void | object;
 
-class Err extends Error {
+export default class Err extends Error {
+  code: Code;
+  info: void | object | undefined;
 
-  /*::
-
-  code: number | string
-  info: void | Object
-
-  */
-
-  constructor(code /*: number | string */, message /*:: ?: string */, info /*:: ?: Object */) {
+  constructor(code: Code, message?: string, info?: Info) {
     super(message || String(code))
     this.code = code
     this.info = info
   }
-
 }
-
-module.exports = Err

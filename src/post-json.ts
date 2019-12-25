@@ -1,21 +1,17 @@
-// @flow
+import { inspect } from 'util';
+import { parse } from 'url';
 
-const { inspect } = require('util')
 const { max } = Math
 const { now } = Date
-const { parse } = require('url')
-const defaultAgentOfUrl = require('./default-agent-of-url')
-const errOf = require('./err-of')
-const logOf = require('./log-of')
-const meta = require('./meta')
-const requestOfUrl = require('./request-of-url')
-const sleep = require('./sleep')
 
-/*::
+import defaultAgentOfUrl from './default-agent-of-url';
+import errOf from './err-of';
+import logOf from './log-of';
+import meta from './meta';
+import requestOfUrl from './request-of-url';
+import sleep from './sleep';
 
-type ErrorWithCode = Error & { code?: string | number }
-
-*/
+export type ErrorWithCode = Error & { code?: string | number }
 
 const log = logOf('post-json')
 
@@ -32,7 +28,7 @@ const defaultUnflushedRetry = 8
 // As default, we'll wait minimum 1 second before each retry.
 const defaultRetryDelay = 1 * 1000
 
-function parseJson(value /*: string */) /*: any */ {
+function parseJson(value : string ): any {
   try {
     return JSON.parse(value)
   } catch (err) {
@@ -40,7 +36,7 @@ function parseJson(value /*: string */) /*: any */ {
   }
 }
 
-function defaultRetryOfErr(err /*: ErrorWithCode */) /*: boolean */ {
+function defaultRetryOfErr(err : ErrorWithCode ) : boolean {
   return err && (
     err.code === 'ECONNRESET' ||
     err.code === 'ETIMEOUT'
@@ -49,16 +45,16 @@ function defaultRetryOfErr(err /*: ErrorWithCode */) /*: boolean */ {
 
 // TODO: Add retry for common errors.
 function postJsonNoRetry(
-  url /*: string */,
-  json /*: any */,
+  url: string ,
+  json: any ,
   {
     agentOfUrl = defaultAgentOfUrl,
     timeout = defaultTimeout
-  } /*: {
+  }: {
     agentOfUrl?: (url: string) => any,
     timeout?: number
-  } */ = {}
-) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
+  } = {}
+) : Promise<{ code: number, headers: string[], json: any, buffer: Buffer }>  {
   const request = requestOfUrl(url)
   if (!request) {
     throw new TypeError(`Unable to determine request function to use for ${inspect(url)} url (expected http:// or https:// schema).`)
@@ -97,7 +93,7 @@ function postJsonNoRetry(
     let flushed = false
 
     const req = request(options, res => {
-      const chunks = []
+      const chunks: Uint8Array[] = [];
       res.on('data', chunk => chunks.push(chunk))
       res.on('end', () => {
         const code = res.statusCode
@@ -144,17 +140,17 @@ function postJsonNoRetry(
   })
 }
 
-function postJsonRetry(
-  url /*: string */,
-  json /*: any */,
-  options /*: {
+export function postJsonRetry(
+  url: string,
+  json: any,
+  options: {
     agentOfUrl?: (url: string) => any,
     timeout?: number,
     retry?: number,
     retryDelay?: number,
     retryOfErr?: (err: ErrorWithCode) => boolean
-  } */ = {}
-) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
+  } = {}
+): Promise<{ code: number, headers: string[], json: any, buffer: Buffer }> {
   const { retry, retryDelay = defaultRetryDelay, retryOfErr = defaultRetryOfErr, ...rest } = options
   const before = now()
   return postJsonNoRetry(url, json, rest)
@@ -181,4 +177,4 @@ function postJsonRetry(
     })
 }
 
-module.exports = postJsonRetry
+export default postJsonRetry;

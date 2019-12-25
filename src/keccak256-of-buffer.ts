@@ -1,8 +1,7 @@
-// @flow
-/* eslint-disable new-cap */
+import { inspect } from 'util';
 
-const { inspect } = require('util')
-const S_f1600_ = require('./keccak256-f1600')
+import S_f1600_ from './keccak256-f1600';
+
 const { isBuffer } = Buffer
 
 const S = new ArrayBuffer(200)
@@ -19,8 +18,7 @@ function S_f1600() {
   S_f1600_(s)
 }
 
-function keccak256(xs) {
-
+function keccak256(xs: Buffer) {
   const xn = xs.length
 
   S_zero()
@@ -45,11 +43,15 @@ function keccak256(xs) {
   return B.slice(0, 32)
 }
 
-function keccak256OfBuffer(value /*: Buffer */) /*: Buffer */ {
+/**
+ * TODO: description of function 
+ * @param value Buffer 
+ */
+export function keccak256OfBuffer(value: Buffer): Buffer {
   if (!isBuffer(value)) {
     throw new TypeError(`Expected buffer, got ${inspect(value)}.`)
   }
   return Buffer.from(keccak256(value))
 }
 
-module.exports = keccak256OfBuffer
+export default keccak256OfBuffer;

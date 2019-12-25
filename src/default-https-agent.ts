@@ -1,8 +1,7 @@
-// @flow
 
-const { Agent } = require('https')
-const booleanOfString = require('./boolean-of-string')
-const integerOfString = require('./integer-of-string')
+import { Agent } from 'https';
+import booleanOfString from './boolean-of-string';
+import integerOfString from './integer-of-string';
 
 const defaultKeepAlive = 'true'
 const defaultKeepAliveMsecs = '1000'
@@ -48,4 +47,4 @@ const defaultHttpsAgent = new Agent({
   timeout
 })
 
-module.exports = defaultHttpsAgent
+export default defaultHttpsAgent;

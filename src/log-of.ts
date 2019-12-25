@@ -1,20 +1,18 @@
-// @flow
 
-const { inspect } = require('util')
+import os from 'os';
+import { inspect } from 'util';
+import isString from './is-string'
+
 const { keys } = Object
-const isString = require('./is-string')
-const os = require('os')
 
-/*::
-
-type Target = {
+export type Target = {
   error: Function,
   warn: Function,
   info: Function,
   debug: Function
 }
 
-type Log = {|
+export type Log = {
   target: Target,
   fatal: Function,
   error: Function,
@@ -22,21 +20,19 @@ type Log = {|
   info: Function,
   debug: Function,
   trace: Function
-|}
-
-*/
+}
 
 const pid = process.pid
 const hostname = os.hostname()
 
-const levels = {
-  off: 70,
-  fatal: 60,
-  error: 50,
-  warn: 40,
-  info: 30,
-  debug: 20,
-  trace: 10
+export enum levels {
+  off = 70,
+  fatal = 60,
+  error = 50,
+  warn = 40,
+  info = 30,
+  debug = 20,
+  trace = 10
 }
 
 const labelOfLevel = {
@@ -48,13 +44,16 @@ const labelOfLevel = {
   [levels.trace]: 'TRACE'
 }
 
+
 const logTarget = process.env.LOG_TARGET || 'console'
 
 // Methods that need to be defined on the target, ie. `console`.
 const targetMethods = [ 'error', 'warn', 'info', 'debug' ]
 
+type targetLogMethod = 'error' | 'warn' | 'info' | 'debug';
+
 // Mapping from log method name to target method name.
-const targetMethodOfLogMethod = {
+const targetMethodOfLogMethod: Record<string, targetLogMethod> = {
   fatal: 'error',
   error: 'error',
   warn: 'warn',
@@ -63,15 +62,16 @@ const targetMethodOfLogMethod = {
   trace: 'debug'
 }
 
+
 const logMethods = keys(targetMethodOfLogMethod)
 
-const modLevels /*: { [string]: number } */ = (process.env.LOG || 'off')
+const modLevels: Record<string, number> = (process.env.LOG || 'off')
   .split(',')
   .map(entry => entry.includes('=') ?
     entry.split('=') :
     [ 'global', entry ]
   )
-  .reduce((r /*: any */, [ k, v ]) => ({ ...r, [k]: levels[v] || levels.off }), {})
+  .reduce((r: Record<string, number>, [ k, v]) => ({ ...r, [k]: levels[v] || levels.off }), {})
 
 function noop() {}
 
@@ -80,19 +80,21 @@ function now() {
 }
 
 // TODO: Protect against circular references.
-function jsonOf(time, level, name, ...args) {
-  return JSON.stringify(
-    args.reduce((r /*: any */, e) => Object.assign(r, typeof e === 'string' ? { msg: e } : e), { pid, hostname, time, level, name, v: 0 })
+function jsonOf(time: string, level: levels, name: string, ...args: any[]): string {
+ return JSON.stringify(
+    args.reduce((
+      r: any, e
+    ) => Object.assign(r, typeof e === 'string' ? { msg: e } : e), { pid, hostname, time, level, name, v: 0 })
   )
 }
 
 const targets = {
-  console: targetMethods.reduce((r /*: any */, k /*: any */) => ({ ...r, [k]: (time, level, mod, ...rest) => console[k](`[${time}]`, `${labelOfLevel[level].padStart(5, ' ')}:`, `${mod}/${pid}`, `on ${hostname}:`, ...rest.map(_ => isString(_) ? _ : inspect(_))) }), {}),
-  bunyan: targetMethods.reduce((r /*: any */, k /*: any */) => ({ ...r, [k]: (...args) => console[k](jsonOf(...args)) }), {})
+  console: targetMethods.reduce((r: any, k: string) => ({ ...r, [k]: (time: string, level: levels, mod: string, ...rest: any[]) => console[k as targetLogMethod](`[${time}]`, `${labelOfLevel[level].padStart(5, ' ')}:`, `${mod}/${pid}`, `on ${hostname}:`, ...rest.map(_ => isString(_) ? _ : inspect(_))) }), {}),
+  bunyan: targetMethods.reduce((r: any, k: string) => ({ ...r, [k]: (...args: any[]) => console[k](jsonOf(...args)) }), {})
 }
 
-function logOf(mod /*: string */, target /*:: ?: Target */ = targets[logTarget]) /*: Log */ {
-  const level = modLevels[mod] || modLevels['global'] || levels.info
+export default function logOf(mod: string, target?: Target = targets[logTarget]): Log  {
+ const level = modLevels[mod] || modLevels['global'] || levels.info
   return (
     logMethods
       .reduce(
@@ -105,8 +107,7 @@ function logOf(mod /*: string */, target /*:: ?: Target */ = targets[logTarget])
           }
         ),
         { target }
-      ) /*: any */
+      )
   )
 }
 
-module.exports = logOf

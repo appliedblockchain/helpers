@@ -1,7 +1,6 @@
-// @flow
 
-function isDefined(value /*: mixed */) /*: boolean %checks */ {
+export function isDefined(value: any) : boolean  {
   return typeof value !== 'undefined'
 }
 
-module.exports = isDefined
+export default isDefined;

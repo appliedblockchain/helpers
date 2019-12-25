@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 // Unrolled f1600 based on https://github.com/emn178/js-sha3 Chen, Yi-Cyuan, MIT
 
 const RC = [
@@ -9,7 +7,7 @@ const RC = [
   2147483648, 2147483649, 0, 2147516424, 2147483648
 ]
 
-module.exports = function (s) {
+export default function (s: Uint32Array): void {
 
   let h, l, n, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14,
     b15, b16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, b31, b32, b33, b34, b35, b36, b37,

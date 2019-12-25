@@ -1,8 +1,7 @@
-// @flow
 
-const weakMap /*: WeakMap<Object, { [string | Symbol]: mixed }> */ = new WeakMap
+const weakMap: WeakMap<Object, Record<string, any>> = new WeakMap
 
-function has(target /*: Object */, key /*: string | Symbol */) {
+export function has(target: object, key: string): boolean {
   const meta = weakMap.get(target)
   if (!meta) {
     return false
@@ -10,7 +9,7 @@ function has(target /*: Object */, key /*: string | Symbol */) {
   return typeof meta[key] !== 'undefined'
 }
 
-function get(target /*: Object */, key /*: string | Symbol */) {
+export function get(target: object, key: string) {
   const meta = weakMap.get(target)
   if (!meta) {
     return void 0
@@ -18,7 +17,7 @@ function get(target /*: Object */, key /*: string | Symbol */) {
   return meta[key]
 }
 
-function set(target /*: Object */, key /*: string | Symbol */, value /*: mixed */) {
+export function set(target: object, key: string, value: any) {
   if (!weakMap.has(target)) {
     weakMap.set(target, {})
   }
@@ -29,8 +28,8 @@ function set(target /*: Object */, key /*: string | Symbol */, value /*: mixed *
   meta[key] = value
 }
 
-module.exports = {
+export default {
   has,
+  set,
   get,
-  set
 }

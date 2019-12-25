@@ -1,8 +1,7 @@
-// @flow
 
-const isString = require('./is-string')
+import isString from './is-string';
 
-function integerOfString(value /*: string */) /*: number */ {
+export function integerOfString(value: string) : number {
   if (!isString(value)) {
     return NaN
   }
@@ -25,4 +24,4 @@ function integerOfString(value /*: string */) /*: number */ {
   return parseInt(value, 10)
 }
 
-module.exports = integerOfString
+export default integerOfString;

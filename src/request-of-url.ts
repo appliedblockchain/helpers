@@ -1,10 +1,20 @@
-// @flow
+import {
+  request as httpRequest,
+  ClientRequest,
+  RequestOptions,
+  IncomingMessage,
+} from 'http';
+import { request as httpsRequest } from 'https';
+import isString from './is-string';
 
-const { request: httpsRequest } = require('https')
-const { request: httpRequest } = require('http')
-const isString = require('./is-string')
+type requestType = (
+  options: RequestOptions |
+  string |
+  URL,
+  callback?: (res: IncomingMessage) => void
+) => ClientRequest
 
-function requestOfUrl(url /*: string */) {
+export default function requestOfUrl(url: string): requestType | null {
   if (!isString(url)) {
     return null
   }
@@ -16,5 +26,3 @@ function requestOfUrl(url /*: string */) {
   }
   return null
 }
-
-module.exports = requestOfUrl

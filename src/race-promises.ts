@@ -1,7 +1,6 @@
-// @flow
 
 /** Like `Promise.race` but doen't complain about unhandled rejections that happen after race has settled. */
-function racePromises(promises /*: Promise<any>[] */) /*: Promise<any> */ {
+export function racePromises(promises: Promise<any>[]): Promise<any> {
   return Promise
     .race(
       promises.map(promise => promise
@@ -17,4 +16,4 @@ function racePromises(promises /*: Promise<any>[] */) /*: Promise<any> */ {
     })
 }
 
-module.exports = racePromises
+export default racePromises

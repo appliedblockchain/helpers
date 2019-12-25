@@ -1,9 +1,8 @@
-// @flow
 
-const isHex0x = require('./is-hex0x')
+import isHex0x from './is-hex0x';
 
 // TODO: Check if safe integer.
-function isBlockNumberOrTag(value /*: mixed */) /*: boolean %checks */ {
+function isBlockNumberOrTag(value: any): boolean {
   return (
     isHex0x(value) ||
     value === 'earliest' ||
@@ -12,4 +11,4 @@ function isBlockNumberOrTag(value /*: mixed */) /*: boolean %checks */ {
   )
 }
 
-module.exports = isBlockNumberOrTag
+export default isBlockNumberOrTag;

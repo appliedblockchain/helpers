@@ -1,9 +1,5 @@
-// @flow
+import Err, { Code, Info } from './err';
 
-const Err = require('./err')
-
-function errOf(code /*: number | string */, message /*:: ?: string */, info /*:: ?: Object */) {
+export default function errOf(code: Code, message?: string, info?: Info) {
   return new Err(code, message, info)
 }
-
-module.exports = errOf

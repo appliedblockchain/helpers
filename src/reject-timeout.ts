@@ -1,14 +1,13 @@
-// @flow
 
-const racePromises = require('./race-promises')
-const timeoutOf = require('./timeout-of')
+import racePromises from './race-promises';
+import timeoutOf from './timeout-of';
 
-function rejectTimeout/*:: <T> */(
-  promise /*: Promise<T> */,
-  milliseconds /*: number */,
-  message /*:: ?: string */ = `Timeout of ${String(milliseconds)}ms exceeded.`,
-  code /*:: ?: number | string */ = '@appliedblockchain/helpers/timeout'
-) /*: Promise<T> */ {
+export function rejectTimeout<T>(
+  promise: Promise<T>, 
+  milliseconds: number,
+  message: string = `Timeout of ${String(milliseconds)}ms exceeded.`,
+  code: number | string = '@appliedblockchain/helpers/timeout'
+) : Promise<T>  {
   const timeout = timeoutOf(milliseconds, message, code)
   return racePromises([
     promise.finally(() => {
@@ -20,4 +19,4 @@ function rejectTimeout/*:: <T> */(
   ])
 }
 
-module.exports = rejectTimeout
+export default rejectTimeout;

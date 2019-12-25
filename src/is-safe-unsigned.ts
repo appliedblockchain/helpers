@@ -1,9 +1,8 @@
-// @flow
 
 const { isSafeInteger } = Number
 
 /** @returns `true` if value is safe unsigned number, `false` otherwise. */
-function isSafeUnsigned(value /*: mixed */) /*: boolean %checks */ {
+export function isSafeUnsigned(value: any) : boolean {
   return (
     typeof value === 'number' &&
     value >= 0 &&
@@ -11,4 +10,4 @@ function isSafeUnsigned(value /*: mixed */) /*: boolean %checks */ {
   )
 }
 
-module.exports = isSafeUnsigned
+export default isSafeUnsigned;
