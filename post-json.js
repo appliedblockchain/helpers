@@ -96,6 +96,7 @@ function postJsonNoRetry(
     // request.
     let flushed = false
 
+    // $FlowFixMe: Cannot call `request` because property `rejectUnauthorized` is missing in `net$connectOptions` [1] but exists in `tls$connectOptions` [2] in the first argument of property `createConnection`.
     const req = request(options, res => {
       const chunks = []
       res.on('data', chunk => chunks.push(chunk))
