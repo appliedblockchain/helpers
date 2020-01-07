@@ -1,5 +1,11 @@
 # Changelog
 
+## [v4.2.0](../../compare/v4.1.0...v4.2.0) (2020-01-07)
+
+* Silent flow error temporarily.
+* Bumping npms.
+* Updating changelog.
+
 ## [v4.1.0](../../compare/v4.0.0...v4.1.0) (2019-12-20)
 
 * Adding inc helper.
