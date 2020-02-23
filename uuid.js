@@ -18,7 +18,7 @@ const variantMicrosoft = Symbol('variantMicrosoft')
 // Reserved for future expansion.
 const variantFuture = Symbol('variantFuture')
 
-function mask(bytes_ /*: Buffer */, version /*:: ?: number */ = 4, variant /*:: ?: Symbol */ = variantRfc4122) /*: Buffer */ {
+function mask(bytes_ /*: Buffer */, version /*:: ?: number */ = 4, variant /*:: ?: symbol */ = variantRfc4122) /*: Buffer */ {
 
   const bytes = Buffer.from(bytes_)
 
