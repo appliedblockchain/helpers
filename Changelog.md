@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.3.0](../../compare/v4.2.0...v4.3.0) (2020-02-23)
+
+* Bumping npms.
+* Adding json-of-url.
+* Adding last-of.
+* Adding first-of.
+* Adding $ReturnPromised utility type that extracts inner type of...
+* Adding $Promised utility type that extracts type of promise.
+* Adding $Return utility type that extracts return type of a function.
+* Updating changelog.
+
 ## [v4.2.0](../../compare/v4.1.0...v4.2.0) (2020-01-07)
 
 * Silent flow error temporarily.
