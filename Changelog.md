@@ -1,5 +1,10 @@
 # Changelog
 
+## [v4.4.0](../../compare/v4.3.0...v4.4.0) (2020-02-25)
+
+* Adding has-keys helper.
+* Updating changelog.
+
 ## [v4.3.0](../../compare/v4.2.0...v4.3.0) (2020-02-23)
 
 * Bumping npms.
