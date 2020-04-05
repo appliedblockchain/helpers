@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.0.1](../../compare/v5.0.0...v5.0.1) (2020-04-05)
+
+* Thow in args/string if default not provided and arg is not present.
+* Updating changelog.
+
 ## [v5.0.0](../../compare/v4.4.0...v5.0.0) (2020-04-05)
 
 * Bumping npms.
