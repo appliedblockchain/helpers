@@ -1,5 +1,11 @@
 # Changelog
 
+## [v5.0.0](../../compare/v4.4.0...v5.0.0) (2020-04-05)
+
+* Bumping npms.
+* Moving flag-of-* to argv/, updating api.
+* Updating changelog.
+
 ## [v4.4.0](../../compare/v4.3.0...v4.4.0) (2020-02-25)
 
 * Adding has-keys helper.
