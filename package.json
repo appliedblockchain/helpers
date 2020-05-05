@@ -8,7 +8,8 @@
     "test": "eslint . && flow check && jest",
     "patch": "npm test && npm version patch && git push && git push --tags && npm publish",
     "minor": "npm test && npm version minor && git push && git push --tags && npm publish",
-    "postversion": "changelog > Changelog.md && git add Changelog.md && git commit -m \"Updating changelog.\" && git push && git push --tags"
+    "postversion": "changelog > Changelog.md && git add Changelog.md && git commit -m \"Updating changelog.\" && git push && git push --tags",
+    "update": "npm-check --update --save-exact"
   },
   "keywords": [],
   "author": "Mirek Rusin",
@@ -23,8 +24,9 @@
     "@appliedblockchain/changelog": "1.1.0",
     "@appliedblockchain/eslint-config": "2.6.0",
     "eslint": "6.8.0",
-    "flow-bin": "0.122.0",
-    "jest": "25.2.7"
+    "flow-bin": "0.123.0",
+    "jest": "26.0.0",
+    "npm-check": "5.9.2"
   },
   "eslintConfig": {
     "extends": "@appliedblockchain",
