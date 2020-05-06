@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.3.0](../../compare/v5.2.0...v5.3.0) (2020-05-06)
+
+* Adding shuffle.
+* Updating changelog.
+
 ## [v5.2.0](../../compare/v5.1.0...v5.2.0) (2020-05-05)
 
 * Bumping npms; adding support for `npm run update`.
