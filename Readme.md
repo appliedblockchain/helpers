@@ -22,47 +22,64 @@ No dependency, single file helpers. Skewed towards ethereum.
     -   [Parameters](#parameters-3)
 -   [bufferOfHexOrHex0x](#bufferofhexorhex0x)
     -   [Parameters](#parameters-4)
--   [catchOf](#catchof)
+-   [bufferOfHex](#bufferofhex)
     -   [Parameters](#parameters-5)
--   [defaultCmp](#defaultcmp)
+-   [bufferOfHex0x](#bufferofhex0x)
     -   [Parameters](#parameters-6)
--   [eachPromise](#eachpromise)
+-   [bufferOfUnsigned](#bufferofunsigned)
     -   [Parameters](#parameters-7)
--   [eventuallyTrue](#eventuallytrue)
+-   [catchOf](#catchof)
     -   [Parameters](#parameters-8)
--   [flagOfBoolean](#flagofboolean)
+-   [defaultCmp](#defaultcmp)
     -   [Parameters](#parameters-9)
-    -   [Examples](#examples)
--   [heightOf](#heightof)
+-   [eachPromise](#eachpromise)
     -   [Parameters](#parameters-10)
--   [hex0xOfNumber](#hex0xofnumber)
+-   [evenZeroPaddedOf](#evenzeropaddedof)
     -   [Parameters](#parameters-11)
--   [indexedByKey](#indexedbykey)
+-   [eventuallyTrue](#eventuallytrue)
     -   [Parameters](#parameters-12)
--   [isLikeDateString](#islikedatestring)
+-   [fibonacciOf](#fibonacciof)
     -   [Parameters](#parameters-13)
--   [isPending](#ispending)
+-   [hasKeys](#haskeys)
     -   [Parameters](#parameters-14)
--   [isSafeNonNegative](#issafenonnegative)
+-   [heightOf](#heightof)
     -   [Parameters](#parameters-15)
--   [isSafePositive](#issafepositive)
+-   [hexOfUnsigned](#hexofunsigned)
     -   [Parameters](#parameters-16)
+-   [hex0xOfUnsigned](#hex0xofunsigned)
+    -   [Parameters](#parameters-17)
+-   [indexedByKey](#indexedbykey)
+    -   [Parameters](#parameters-18)
+-   [isLikeDateString](#islikedatestring)
+    -   [Parameters](#parameters-19)
+-   [isPending](#ispending)
+    -   [Parameters](#parameters-20)
+-   [isSafePositive](#issafepositive)
+    -   [Parameters](#parameters-21)
+-   [isSafeUnsigned](#issafeunsigned)
+    -   [Parameters](#parameters-22)
+-   [jsonOfUrl](#jsonofurl)
+    -   [Parameters](#parameters-23)
 -   [makeRetrace](#makeretrace)
 -   [noop](#noop)
 -   [objectOfStrings](#objectofstrings)
-    -   [Parameters](#parameters-17)
+    -   [Parameters](#parameters-24)
+-   [racePromises](#racepromises)
+    -   [Parameters](#parameters-25)
 -   [randomUint32](#randomuint32)
 -   [shSync](#shsync)
-    -   [Parameters](#parameters-18)
+    -   [Parameters](#parameters-26)
 -   [sortedDifference](#sorteddifference)
-    -   [Parameters](#parameters-19)
+    -   [Parameters](#parameters-27)
 -   [sortedIntersection](#sortedintersection)
-    -   [Parameters](#parameters-20)
+    -   [Parameters](#parameters-28)
 -   [defaultTimeout](#defaulttimeout)
 -   [spread](#spread)
-    -   [Parameters](#parameters-21)
+    -   [Parameters](#parameters-29)
 -   [stopOfMonitor](#stopofmonitor)
-    -   [Parameters](#parameters-22)
+    -   [Parameters](#parameters-30)
+-   [timeoutOf](#timeoutof)
+    -   [Parameters](#parameters-31)
 
 ### addressOfPrivateKey
 
@@ -113,6 +130,30 @@ Returns `Buffer` representation of provided hex (ie. `"ff"`) or hex0x (ie. `"0xf
 
 -   Throws **any** TypeError On invalid input.
 
+### bufferOfHex
+
+#### Parameters
+
+-   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **any** buffer representation of provided hex string.
+
+### bufferOfHex0x
+
+#### Parameters
+
+-   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** buffer representation of provided hex0x string.
+
+### bufferOfUnsigned
+
+#### Parameters
+
+-   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** the smallest buffer representation of provided safe, unsigned integer number. When input is `0` - empty buffer is returned.
+
 ### catchOf
 
 #### Parameters
@@ -124,7 +165,8 @@ Returns **function (error: [Error](https://developer.mozilla.org/docs/Web/JavaSc
 
 ### defaultCmp
 
--   **See: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description>**
+-   **See: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description>
+    **
 
 Default comparision function.
 
@@ -146,6 +188,14 @@ Exceptions are captured and results are yielded as `[ err, result, i ]` tuple.
 
 Returns **AsyncGenerator&lt;\[[Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)?, T?, [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)], any, any>** 
 
+### evenZeroPaddedOf
+
+#### Parameters
+
+-   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **any** input string padded with 0 if length is odd, otherwise returns string as is.
+
 ### eventuallyTrue
 
 Retries up to `n` times (roughtly seconds) call to `f` waiting for `true` result, which breaks the loop and returns
@@ -158,24 +208,25 @@ Retries up to `n` times (roughtly seconds) call to `f` waiting for `true` result
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;(`true` | R)>** 
 
-### flagOfBoolean
+### fibonacciOf
 
-Returns boolean value of command line argument.
+Yields fibonacci sequence capped to `max` (default max safe integer).
 
 #### Parameters
 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `max` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**  (optional, default `defaultMax`)
 
-#### Examples
+Returns **void** 
 
-```javascript
-const flagOfBoolean = require('@appliedblockchain/helpers/flag-of-boolean')
-console.log(flagOfBoolean('--bar'))
-// node foo.js
-// false
-// node foo.js --bar
-// true
-```
+### hasKeys
+
+Type: function (any): [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
+
+#### Parameters
+
+-   `value`  
+
+Returns **any** `true` if `value` has one or more keys, `false` otherwise.
 
 ### heightOf
 
@@ -186,19 +237,27 @@ console.log(flagOfBoolean('--bar'))
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** Height of the chain from provided ethereum jsonrpc endpoint `url` or `NaN` if timeout has been reached or any other problem occured.
 
-### hex0xOfNumber
+### hexOfUnsigned
 
 #### Parameters
 
 -   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 0x-prefixed hex string representation of a safe, non-negative integer number.
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** even/byte-padded, hex string representation of a safe, unsigned number.
+
+### hex0xOfUnsigned
+
+#### Parameters
+
+-   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 0x-prefixed hex string representation of a safe, unsigned number.
 
 ### indexedByKey
 
 #### Parameters
 
--   `xs` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;T>** 
+-   `values` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;T>** 
 -   `key` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **{}** transposed entries from xs, indexed by `key`. Non-unique keys will overwrite previous values.
@@ -224,16 +283,6 @@ Returns `true` if promise has not settled yet, `false` otherwise.
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
-### isSafeNonNegative
-
-Returns `true` if value is safe integer greater than or equal to zero, `false` otherwise.
-
-#### Parameters
-
--   `value` **any** 
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
 ### isSafePositive
 
 #### Parameters
@@ -241,6 +290,24 @@ Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 -   `value` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if value is safe integer greater than zero, `false` otherwise.
+
+### isSafeUnsigned
+
+#### Parameters
+
+-   `value` **any** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** `true` if value is safe unsigned number, `false` otherwise.
+
+### jsonOfUrl
+
+Type: function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>
+
+#### Parameters
+
+-   `url`  
+
+Returns **any** json from basic http(s) get request on `url`.
 
 ### makeRetrace
 
@@ -259,6 +326,16 @@ Identity function.
 
 Returns **{}** membership object (set) for provided list of elements (strings).
 
+### racePromises
+
+Like `Promise.race` but doen't complain about unhandled rejections that happen after race has settled.
+
+#### Parameters
+
+-   `promises` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>>** 
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;any>** 
+
 ### randomUint32
 
 Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** random unsigned integer that fits 32 bits.
@@ -270,7 +347,7 @@ Executes simple shell command.
 #### Parameters
 
 -   `cmd` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `$1` **any**  (optional, default `{}`)
+-   `$1` **{trim: [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?}**  (optional, default `{}`)
     -   `$1.trim`   (optional, default `true`)
 
 ### sortedDifference
@@ -303,7 +380,7 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### defaultTimeout
 
-Expire cached nonces after 1 minute.
+Expire cached nonces after 12 seconds.
 
 ### spread
 
@@ -328,6 +405,16 @@ are ignored.
 -   `milliseconds` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**  (optional, default `1*1000`)
 
 Returns **any** stop function.
+
+### timeoutOf
+
+#### Parameters
+
+-   `milliseconds` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `` `Timeout of ${String(milliseconds)}ms exceeded.` ``)
+-   `code` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))**  (optional, default `'@appliedblockchain/helpers/timeout'`)
+
+Returns **any** cancellable, rejecting timeout promise.
 
 ## License
 
