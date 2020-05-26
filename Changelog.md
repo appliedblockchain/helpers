@@ -1,5 +1,12 @@
 # Changelog
 
+## [v5.4.0](../../compare/v5.3.0...v5.4.0) (2020-05-26)
+
+* Adding serial-queue-of helper.
+* Bumping npms.
+* Updating jest libdef.
+* Updating changelog.
+
 ## [v5.3.0](../../compare/v5.2.0...v5.3.0) (2020-05-06)
 
 * Adding shuffle.
