@@ -79,16 +79,39 @@ function now() {
   return new Date().toISOString()
 }
 
-// TODO: Protect against circular references.
-function jsonOf(time, level, name, ...args) {
-  return JSON.stringify(
-    args.reduce((r /*: any */, e) => Object.assign(r, typeof e === 'string' ? { msg: e } : e), { pid, hostname, time, level, name, v: 0 })
+/** @returns `true` if provided `value` can be safely assigned to the root bunyan json object, `false` otherwise. */
+const bunyanSafe /*: mixed => boolean */ =
+  value => (
+    value != null &&
+    typeof value === 'object' &&
+    typeof value.pid === 'undefined' &&
+    typeof value.hostname === 'undefined' &&
+    typeof value.time === 'undefined' &&
+    typeof value.level === 'undefined' &&
+    typeof value.name === 'undefined' &&
+    typeof value.v === 'undefined' &&
+    typeof value.msg === 'undefined'
   )
+
+// TODO: Protect against circular references.
+function bunyanOf(time, level, name, ...args) {
+  const r = {}
+  const msgs = []
+  for (const arg of args) {
+    if (bunyanSafe(arg)) {
+      Object.assign(r, arg)
+    } else {
+      msgs.push(typeof arg === 'string' ? arg : inspect(arg))
+    }
+  }
+  const msg = msgs.join('; ')
+  Object.assign(r, { pid, hostname, time, level, name, v: 0, msg })
+  return r
 }
 
 const targets = {
   console: targetMethods.reduce((r /*: any */, k /*: any */) => ({ ...r, [k]: (time, level, mod, ...rest) => console[k](`[${time}]`, `${labelOfLevel[level].padStart(5, ' ')}:`, `${mod}/${pid}`, `on ${hostname}:`, ...rest.map(_ => isString(_) ? _ : inspect(_))) }), {}),
-  bunyan: targetMethods.reduce((r /*: any */, k /*: any */) => ({ ...r, [k]: (...args) => console[k](jsonOf(...args)) }), {})
+  bunyan: targetMethods.reduce((r /*: any */, k /*: any */) => ({ ...r, [k]: (...args) => console[k](bunyanOf(...args)) }), {})
 }
 
 function logOf(mod /*: string */, target /*:: ?: Target */ = targets[logTarget]) /*: Log */ {
