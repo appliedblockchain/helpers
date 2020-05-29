@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.4.1](../../compare/v5.4.0...v5.4.1) (2020-05-29)
+
+* Making sure bunyan output has single string `msg` prop.
+* Updating changelog.
+
 ## [v5.4.0](../../compare/v5.3.0...v5.4.0) (2020-05-26)
 
 * Adding serial-queue-of helper.
