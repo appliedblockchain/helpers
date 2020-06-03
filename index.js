@@ -64,7 +64,7 @@ const isPlainObjectShallow = require('./is-plain-object-shallow')
 const isSafeNonNegative = require('./is-safe-non-negative')
 const isSafePositive = require('./is-safe-positive')
 const isSafeUnsigned = require('./is-safe-unsigned')
-const isSettled = require('./is-settled')
+// const isSettled = require('./is-settled')
 const isSorted = require('./is-sorted')
 const isString = require('./is-string')
 const isUint32 = require('./is-uint32')
@@ -188,7 +188,7 @@ module.exports = {
   isSafeNonNegative,
   isSafePositive,
   isSafeUnsigned,
-  isSettled,
+  // isSettled,
   isSorted,
   isString,
   isUint32,
