@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.5.2](../../compare/v5.5.1...v5.5.2) (2020-06-03)
+
+* Dropping is-promise helper, bundlers don't know have utils.types...
+* Updating changelog.
+
 ## [v5.5.1](../../compare/v5.5.0...v5.5.1) (2020-06-03)
 
 * Dropping is-pending from index as bundlers don't support...
