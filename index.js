@@ -58,7 +58,7 @@ const isLikeDateString = require('./is-like-date-string')
 const isNil = require('./is-nil')
 const isNull = require('./is-null')
 const isObject = require('./is-object')
-const isPending = require('./is-pending')
+// const isPending = require('./is-pending')
 const isPlainObjectShallow = require('./is-plain-object-shallow')
 const isPromise = require('./is-promise')
 const isSafeNonNegative = require('./is-safe-non-negative')
@@ -182,7 +182,7 @@ module.exports = {
   isNil,
   isNull,
   isObject,
-  isPending,
+  // isPending,
   isPlainObjectShallow,
   isPromise,
   isSafeNonNegative,
