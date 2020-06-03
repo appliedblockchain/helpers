@@ -1,5 +1,11 @@
 # Changelog
 
+## [v5.5.0](../../compare/v5.4.1...v5.5.0) (2020-06-03)
+
+* Exporting helpers in index.
+* Adding random-of-normal-distribution.
+* Updating changelog.
+
 ## [v5.4.1](../../compare/v5.4.0...v5.4.1) (2020-05-29)
 
 * Making sure bunyan output has single string `msg` prop.
