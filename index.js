@@ -60,7 +60,7 @@ const isNull = require('./is-null')
 const isObject = require('./is-object')
 // const isPending = require('./is-pending')
 const isPlainObjectShallow = require('./is-plain-object-shallow')
-const isPromise = require('./is-promise')
+// const isPromise = require('./is-promise')
 const isSafeNonNegative = require('./is-safe-non-negative')
 const isSafePositive = require('./is-safe-positive')
 const isSafeUnsigned = require('./is-safe-unsigned')
@@ -184,7 +184,7 @@ module.exports = {
   isObject,
   // isPending,
   isPlainObjectShallow,
-  isPromise,
+  // isPromise,
   isSafeNonNegative,
   isSafePositive,
   isSafeUnsigned,
