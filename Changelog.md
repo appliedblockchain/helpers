@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.5.5](../../compare/v5.5.4...v5.5.5) (2020-06-08)
+
+* Bumping npms.
+* Updating changelog.
+
 ## [v5.5.4](../../compare/v5.5.3...v5.5.4) (2020-06-08)
 
 * Fixing bunyan output.
