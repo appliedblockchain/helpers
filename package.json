@@ -23,9 +23,9 @@
   "devDependencies": {
     "@appliedblockchain/changelog": "1.1.0",
     "@appliedblockchain/eslint-config": "2.6.0",
-    "documentation": "13.0.0",
-    "eslint": "7.1.0",
-    "flow-bin": "0.125.1",
+    "documentation": "13.0.1",
+    "eslint": "7.2.0",
+    "flow-bin": "0.126.1",
     "jest": "26.0.1",
     "npm-check": "5.9.2"
   },
