@@ -106,7 +106,7 @@ function bunyanOf(time, level, name, ...args) {
   }
   const msg = msgs.join('; ')
   Object.assign(r, { pid, hostname, time, level, name, v: 0, msg })
-  return r
+  return JSON.stringify(r)
 }
 
 const targets = {
