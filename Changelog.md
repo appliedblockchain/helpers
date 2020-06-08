@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.5.4](../../compare/v5.5.3...v5.5.4) (2020-06-08)
+
+* Fixing bunyan output.
+* Updating changelog.
+
 ## [v5.5.3](../../compare/v5.5.2...v5.5.3) (2020-06-03)
 
 * Dropping is-settled from index as bundlers don't support...
