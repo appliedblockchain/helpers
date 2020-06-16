@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.5.6](../../compare/v5.5.5...v5.5.6) (2020-06-16)
+
+* Bumping flow.
+* Updating changelog.
+
 ## [v5.5.5](../../compare/v5.5.4...v5.5.5) (2020-06-08)
 
 * Bumping npms.
