@@ -25,7 +25,7 @@ async function blockHashOf(
     hex0xOfUnsigned(blockNumberOrTag) :
     blockNumberOrTag
   return rejectTimeout(postJsonRpc(url, 'eth_getBlockByNumber', blockNumberOrTag_, false), timeout)
-    .then((block /*: ?{ hash: string } */) => block ? block.hash : null)
+    .then((block /*: ?{ hash: string, ... } */) => block ? block.hash : null)
     .catch(() => null)
 }
 

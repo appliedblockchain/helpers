@@ -7,16 +7,16 @@ const isString = require('./is-string')
 
 /*::
 
-type ErrorWithCode = Error & { code?: string | number }
+type ErrorWithCode = Error & { code?: string | number, ... }
 
-type UrlOrOptions = string | {
+type UrlOrOptions = string | {|
   url: string,
   timeout?: number,
   retry?: number,
   retryDelay?: number,
   agentOfUrl?: (url: string) => any,
   retryOfErr?: (err: ErrorWithCode) => boolean
-}
+|}
 
 */
 

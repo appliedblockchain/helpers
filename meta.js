@@ -1,6 +1,6 @@
 // @flow
 
-const weakMap /*: WeakMap<Object, { [string | Symbol]: mixed }> */ = new WeakMap
+const weakMap /*: WeakMap<Object, {| [string | Symbol]: mixed |}> */ = new WeakMap
 
 function has(target /*: Object */, key /*: string | Symbol */) {
   const meta = weakMap.get(target)

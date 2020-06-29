@@ -13,7 +13,7 @@ const sleep = require('./sleep')
 
 /*::
 
-type ErrorWithCode = Error & { code?: string | number }
+type ErrorWithCode = Error & { code?: string | number, ... }
 
 */
 
@@ -54,10 +54,10 @@ function postJsonNoRetry(
   {
     agentOfUrl = defaultAgentOfUrl,
     timeout = defaultTimeout
-  } /*: {
+  } /*: {|
     agentOfUrl?: (url: string) => any,
     timeout?: number
-  } */ = {}
+  |} */ = {}
 ) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
   const request = requestOfUrl(url)
   if (!request) {
@@ -148,13 +148,13 @@ function postJsonNoRetry(
 function postJsonRetry(
   url /*: string */,
   json /*: any */,
-  options /*: {
+  options /*: {|
     agentOfUrl?: (url: string) => any,
     timeout?: number,
     retry?: number,
     retryDelay?: number,
     retryOfErr?: (err: ErrorWithCode) => boolean
-  } */ = {}
+  |} */ = { retryDelay: defaultRetryDelay, retryOfErr: defaultRetryOfErr }
 ) /*: Promise<{| code: number, headers: string[], json: any, buffer: Buffer |}> */ {
   const { retry, retryDelay = defaultRetryDelay, retryOfErr = defaultRetryOfErr, ...rest } = options
   const before = now()

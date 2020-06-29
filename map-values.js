@@ -3,7 +3,7 @@
 const { isArray } = Array
 const { entries } = Object
 
-function mapValues/*:: <T: mixed[] | { [string]: mixed }> */(value /*: T */, f /*: (mixed, mixed, T) => mixed */) /*: T */ {
+function mapValues/*:: <T: mixed[] | {| [string]: mixed |}> */(value /*: T */, f /*: (mixed, mixed, T) => mixed */) /*: T */ {
   return isArray(value) ?
     (value /*: any */).map(f) :
     (entries((value /*: any */))

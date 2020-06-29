@@ -11,7 +11,8 @@ type Target = {
   error: Function,
   warn: Function,
   info: Function,
-  debug: Function
+  debug: Function,
+  ...
 }
 
 type Log = {|
@@ -65,7 +66,7 @@ const targetMethodOfLogMethod = {
 
 const logMethods = keys(targetMethodOfLogMethod)
 
-const modLevels /*: { [string]: number } */ = (process.env.LOG || 'off')
+const modLevels /*: {| [string]: number |} */ = (process.env.LOG || 'off')
   .split(',')
   .map(entry => entry.includes('=') ?
     entry.split('=') :
