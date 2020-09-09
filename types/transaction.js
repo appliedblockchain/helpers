@@ -5,7 +5,7 @@
 export type Transaction = {|
   blockHash: string,
   blockNumber: string,
-  from: string,
+ from: string,
   gas: string,
   gasPrice: string,
   hash: string,

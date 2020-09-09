@@ -1,0 +1,9 @@
+/** @returns membership object (set) for provided list of elements (strings). */
+export const objectOfStrings =
+  (strings: string[]): Record<string, void | true> =>
+    strings.reduce((r, _) => {
+      r[_] = true
+      return r
+    }, {})
+
+export default objectOfStrings
