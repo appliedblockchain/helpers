@@ -1,4 +1,4 @@
-import isString from './is-string'
+import isString from '../is-string'
 import isHex from './is-hex'
 
 export const isHex0x =

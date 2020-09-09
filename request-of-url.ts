@@ -2,8 +2,13 @@ import { request as httpRequest } from 'http'
 import { request as httpsRequest } from 'https'
 import isString from './is-string'
 
+export type ClientRequest =
+  | typeof httpRequest
+  | typeof httpsRequest
+  | null
+
 export const requestOfUrl =
-  (url: string) => {
+  (url: string): ClientRequest => {
     if (!isString(url)) {
       return null
     }

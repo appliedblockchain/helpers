@@ -1,4 +1,4 @@
-import isString from './is-string'
+import isString from '../is-string'
 
 const re = /^[0-9a-fA-F]*$/
 

@@ -5,7 +5,7 @@ import keccak256OfBuffer from './keccak256-of-buffer'
 /** @returns ethereum checksum address for provided address buffer `value`. */
 const checksumAddressOfBuffer =
   (value: Buffer): string => {
-    if (!isBuffer(value) || value.length !== 20) {
+    if (!Buffer.isBuffer(value) || value.length !== 20) {
       throw new TypeError(`Expected 20 bytes buffer, got ${inspect(value)}.`)
     }
     const address = hexOfBuffer(value)

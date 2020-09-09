@@ -1,25 +1,25 @@
 import { inspect } from 'util'
 
 // Unknown (i.e. custom, your own).
-export const variantUnknown: symbol = Symbol('variantUnknown')
+export const variantUnknown = Symbol('variantUnknown')
 
 // Reserved by the NCS for backward compatibility.
-export const variantNcs: symbol = Symbol('variantNcs')
+export const variantNcs = Symbol('variantNcs')
 
 // Reserved for RFC4122 Specification (default).
-export const variantRfc4122: symbol = Symbol('variantRfc4122')
+export const variantRfc4122 = Symbol('variantRfc4122')
 
 // Reserved by Microsoft for backward compatibility (GUID).
-export const variantMicrosoft: symbol = Symbol('variantMicrosoft')
+export const variantMicrosoft = Symbol('variantMicrosoft')
 
 // Reserved for future expansion.
-export const variantFuture: symbol = Symbol('variantFuture')
+export const variantFuture = Symbol('variantFuture')
 
 export const mask =
   (bytes_: Buffer, version = 4, variant: symbol = variantRfc4122): Buffer => {
     const bytes = Buffer.from(bytes_)
 
-    if (!isBuffer(bytes) || bytes.length !== 16) {
+    if (!Buffer.isBuffer(bytes) || bytes.length !== 16) {
       throw new TypeError(`Expected buffer of 16 bytes, got ${inspect(bytes)}.`)
     }
 
@@ -56,3 +56,5 @@ export const mask =
 
     return bytes
   }
+
+export default mask

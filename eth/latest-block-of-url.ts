@@ -24,4 +24,4 @@ async function latestBlockOfUrl(url: string, includeTransactions: boolean = defa
   })
 }
 
-export default latestBlockOfUrl;
+export default latestBlockOfUrl

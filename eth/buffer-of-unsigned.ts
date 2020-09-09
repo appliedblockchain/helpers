@@ -1,6 +1,6 @@
 import { inspect } from 'util'
 import hexOfUnsigned from './hex-of-unsigned'
-import isSafeUnsigned from './is-safe-unsigned'
+import isSafeUnsigned from '../is-safe-unsigned'
 
 /** @returns the smallest buffer representation of provided safe, unsigned integer number. When input is `0` - empty buffer is returned. */
 export const bufferOfUnsigned: (value: number) => Buffer =

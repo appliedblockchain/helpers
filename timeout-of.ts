@@ -5,7 +5,7 @@ export type CancellablePromise<T> = Promise<T> & { cancel: () => void }
 /** @returns cancellable, rejecting timeout promise. */
 export const timeoutOf = (
   milliseconds: number,
-  message: string = `Timeout of ${String(milliseconds)}ms exceeded.`,
+  message = `Timeout of ${String(milliseconds)}ms exceeded.`,
   code: number | string = '@appliedblockchain/helpers/timeout'
 ): CancellablePromise<undefined> => {
   let timeoutId, resolve_

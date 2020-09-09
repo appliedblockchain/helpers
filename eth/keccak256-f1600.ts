@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // Unrolled f1600 based on https://github.com/emn178/js-sha3 Chen, Yi-Cyuan, MIT
 
 const RC = [

@@ -33,7 +33,7 @@ class SpeculativeNonce {
   nonceOfAddress: (arg0: string) => Promise<number>
   nonces: Map<string, number>
   executors: Map<string, Executor[]>
-  timeoutIds: Set<TimeoutID>
+  timeoutIds: Set<NodeJS.Timeout>
 
 
 

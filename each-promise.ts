@@ -11,7 +11,7 @@ export async function* eachPromise<T>(promises: Promise<T>[]): AsyncGenerator<[N
 
   const settled =
     (err: NilOr<Error>, result: NilOr<T>, i: number) => {
-      results.push([err, result, i])
+      results.push([ err, result, i ])
       if (oncePushed) {
         oncePushed()
         oncePushed = null
@@ -20,14 +20,18 @@ export async function* eachPromise<T>(promises: Promise<T>[]): AsyncGenerator<[N
 
   promises.forEach((promise, i) => promise.then(result => settled(undefined, result, i)).catch(err => settled(err, undefined, i)))
 
+  const promiseOf =
+    () =>
+      new Promise<[Error, T, number]>(resolve => {
+        if (results.length) {
+          resolve(results.shift())
+        } else {
+          oncePushed = () => resolve(results.shift())
+        }
+      })
+
   for (let i = 0; i < promises.length; i++) {
-    yield await new Promise(resolve => {
-      if (results.length) {
-        resolve(results.shift())
-      } else {
-        oncePushed = () => resolve(results.shift())
-      }
-    })
+    yield await promiseOf()
   }
 
 }

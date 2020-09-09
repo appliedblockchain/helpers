@@ -2,7 +2,7 @@
 export const objectOfStrings =
   (strings: string[]): Record<string, void | true> =>
     strings.reduce((r, _) => {
-      r[_] = true
+      r[_] = true // eslint-disable-line no-param-reassign
       return r
     }, {})
 

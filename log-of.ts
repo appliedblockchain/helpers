@@ -1,22 +1,25 @@
 import { inspect } from 'util'
 import isString from './is-string'
+import noop from './noop'
 import os from 'os'
 
+type F = (...args: any[]) => any
+
 type Target = {
-  error: Function
-  warn: Function
-  info: Function
-  debug: Function
+  error: F
+  warn: F
+  info: F
+  debug: F
 }
 
 type Log = {
   target: Target
-  fatal: Function
-  error: Function
-  warn: Function
-  info: Function
-  debug: Function
-  trace: Function
+  fatal: F
+  error: F
+  warn: F
+  info: F
+  debug: F
+  trace: F
 }
 
 const pid = process.pid
@@ -62,11 +65,9 @@ const modLevels: {
   [key: string]: number
 } = (process.env.LOG || 'off').split(',').map(entry => entry.includes('=') ? entry.split('=') : ['global', entry]).reduce((r: any, [k, v]) => ({ ...r, [k]: levels[v] || levels.off }), {})
 
-function noop() {}
-
-function now() {
-  return new Date().toISOString()
-}
+const now =
+  () =>
+    new Date().toISOString()
 
 /** @returns `true` if provided `value` can be safely assigned to the root bunyan json object, `false` otherwise. */
 const bunyanSafe =

@@ -9,16 +9,16 @@ let z1 = 0
 export const randomOfNormalDistribution =
   (mean = 0, standardDeviation = 1): number => {
     if (!(flip = !flip)) {
-      return z1 * standardDeviation + mean
+      return (z1 * standardDeviation) + mean
     }
-    let u1
+    let u1: number
     do {
       u1 = random()
     } while (u1 <= epsilon)
     const u2 = random()
     const z0 = sqrt(-2.0 * log(u1)) * cos(tau * u2)
     z1 = sqrt(-2.0 * log(u1)) * sin(tau * u2)
-    return z0 * standardDeviation + mean
+    return (z0 * standardDeviation) + mean
   }
 
 export default randomOfNormalDistribution
