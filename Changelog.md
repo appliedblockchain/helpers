@@ -1,5 +1,11 @@
 # Changelog
 
+## [v6.0.0](../../compare/v5.5.7...v6.0.0) (2020-09-10)
+
+* Removing direct manipulation on Err.
+* Extending err with severity.
+* Updating changelog.
+
 ## [v5.5.7](../../compare/v5.5.6...v5.5.7) (2020-06-29)
 
 * Bumping npms.
