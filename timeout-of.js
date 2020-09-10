@@ -1,6 +1,6 @@
 // @flow
 
-const Err = require('./err')
+const errOf = require('./err-of')
 
 /** @returns cancellable, rejecting timeout promise. */
 function timeoutOf(
@@ -14,7 +14,7 @@ function timeoutOf(
     resolve_ = resolve
     timeoutId = setTimeout(
       () => {
-        reject(new Err(code, message, { milliseconds }))
+        reject(errOf(code, message, { milliseconds }))
       },
       milliseconds
     )

@@ -3,9 +3,9 @@
 const { inspect } = require('util')
 const assert = require('assert')
 const checksumAddressOfAddress_ = require('./checksum-address-of-address')
-const Err = require('./err')
 const logOf = require('./log-of')
 const rejectTimeout = require('./reject-timeout')
+const warnOf = require('./err-of')
 
 /*::
 
@@ -132,7 +132,7 @@ class SpeculativeNonce {
     this.executors.delete(address)
   }
 
-  close(err /*: Error */ = new Err('@appliedblockchain/helpers/speculative-nonce/close', 'Speculative nonce close has been called.')) {
+  close(err /*: Error */ = warnOf('@appliedblockchain/helpers/speculative-nonce/close', 'Speculative nonce close has been called.')) {
 
     // Clear all expiry timeouts.
     for (const timeoutId of this.timeoutIds) {
